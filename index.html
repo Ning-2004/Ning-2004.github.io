@@ -10,49 +10,98 @@
     body {
       font-family: 'Noto Sans TC', sans-serif;
     }
+    #login-section, #content-section {
+      transition: opacity 0.3s ease;
+    }
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body class="bg-gray-100">
-  <div class="container mx-auto px-4 py-8 max-w-4xl">
-    <!-- Header -->
-    <header class="text-center mb-8">
-      <h1 class="text-4xl md:text-5xl font-bold text-gray-800">歡迎體驗青年友善城市</h1>
-      <p class="text-lg md:text-xl text-gray-600 mt-4">一個充滿活力與創意的城市，等你來探索！</p>
-    </header>
-
-    <!-- Main Content -->
-    <main class="space-y-12">
-      <!-- City Overview -->
-      <section class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">城市概覽</h2>
-        <p class="text-gray-600 leading-relaxed">
-          這座城市以其年輕的氛圍和多元的文化聞名，適合青年探索與成長。從現代化的設施到充滿活力的夜市，這裡為年輕人提供了無限可能。無論你是喜愛藝術、美食還是戶外活動，這裡總有適合你的地方。
-        </p>
-      </section>
-
-      <!-- Attractions -->
-      <section class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">熱門景點</h2>
-        <ul class="list-disc list-inside text-gray-600 space-y-2">
-          <li><strong>創意藝術區</strong>：展示本地年輕藝術家的作品，定期舉辦展覽和音樂會。</li>
-          <li><strong>科技體驗館</strong>：互動式科技展覽，讓你親手體驗最新科技。</li>
-          <li><strong>城市公園</strong>：寬敞的綠地，適合野餐、運動和戶外派對。</li>
-        </ul>
-      </section>
-
-      <!-- Activities -->
-      <section class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">青年活動</h2>
-        <p class="text-gray-600 leading-relaxed">
-          城市定期舉辦青年友善活動，包括創業工作坊、街頭表演和文化節慶。加入我們的社群，結識志同道合的朋友，一起創造屬於你的城市故事！
-        </p>
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="text-center mt-12 text-gray-600">
-      <p>探索更多資訊，請關注我們的社群媒體！</p>
-    </footer>
+<!-- Login Section -->
+<div id="login-section" class="flex items-center justify-center min-h-screen">
+  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">登入</h1>
+    <div class="space-y-4">
+      <div>
+        <label class="block text-gray-700">用戶名</label>
+        <input type="text" id="username" class="w-full p-2 border rounded-md" required>
+      </div>
+      <div>
+        <label class="block text-gray-700">密碼</label>
+        <input type="password" id="password" class="w-full p-2 border rounded-md" required>
+      </div>
+      <button onclick="authenticate()" class="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700">登入</button>
+      <p id="error-message" class="text-red-500 text-center hidden">無效的用戶名或密碼！</p>
+    </div>
   </div>
+</div>
+
+<!-- Content Section (Initially Hidden) -->
+<div id="content-section" class="container mx-auto px-4 py-8 max-w-4xl hidden">
+  <!-- Header -->
+  <header class="text-center mb-8">
+    <h1 class="text-4xl md:text-5xl font-bold text-gray-800">歡迎體驗青年友善城市</h1>
+    <p class="text-lg md:text-xl text-gray-600 mt-4">一個充滿活力與創意的城市，等你來探索！</p>
+  </header>
+
+  <!-- Main Content -->
+  <main class="space-y-12">
+    <!-- City Overview -->
+    <section class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">城市概覽</h2>
+      <p class="text-gray-600 leading-relaxed">
+        這座城市以其年輕的氛圍和多元的文化聞名，適合青年探索與成長。從現代化的設施到充滿活力的夜市，這裡為年輕人提供了無限可能。無論你是喜愛藝術、美食還是戶外活動，這裡總有適合你的地方。
+      </p>
+    </section>
+
+    <!-- Attractions -->
+    <section class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">熱門景點</h2>
+      <ul class="list-disc list-inside text-gray-600 space-y-2">
+        <li><strong>創意藝術區</strong>：展示本地年輕藝術家的作品，定期舉辦展覽和音樂會。</li>
+        <li><strong>科技體驗館</strong>：互動式科技展覽，讓你親手體驗最新科技。</li>
+        <li><strong>城市公園</strong>：寬敞的綠地，適合野餐、運動和戶外派對。</li>
+      </ul>
+    </section>
+
+    <!-- Activities -->
+    <section class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">青年活動</h2>
+      <p class="text-gray-600 leading-relaxed">
+        城市定期舉辦青年友善活動，包括創業工作坊、街頭表演和文化節慶。加入我們的社群，結識志同道合的朋友，一起創造屬於你的城市故事！
+      </p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center mt-12 text-gray-600">
+    <p>探索更多資訊，請關注我們的社群媒體！</p>
+  </footer>
+</div>
+
+<script>
+  function authenticate() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const errorMessage = document.getElementById('error-message');
+
+    // Hardcoded credentials (not secure for production)
+    if (username === 'admin' && password === 'password') {
+      document.getElementById('login-section').classList.add('hidden');
+      document.getElementById('content-section').classList.remove('hidden');
+    } else {
+      errorMessage.classList.remove('hidden');
+    }
+  }
+
+  // Allow Enter key to trigger authentication
+  document.getElementById('password').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      authenticate();
+    }
+  });
+</script>
 </body>
 </html>
