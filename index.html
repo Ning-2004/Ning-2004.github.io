@@ -82,6 +82,20 @@
 </div>
 
 <script>
+  // Redirect to /youth-friendly-city if at root
+  if (window.location.pathname === '/' || window.location.pathname === '') {
+    window.history.replaceState(null, '', '/youth-friendly-city');
+  }
+
+  // Check if user is authenticated
+  let isAuthenticated = localStorage.getItem('authenticated') === 'true';
+
+  // Show content if authenticated and on correct path
+  if (window.location.pathname === '/youth-friendly-city' && isAuthenticated) {
+    document.getElementById('login-section').classList.add('hidden');
+    document.getElementById('content-section').classList.remove('hidden');
+  }
+
   function authenticate() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -89,6 +103,7 @@
 
     // Hardcoded credentials (not secure for production)
     if (username === 'admin' && password === 'password') {
+      localStorage.setItem('authenticated', 'true');
       document.getElementById('login-section').classList.add('hidden');
       document.getElementById('content-section').classList.remove('hidden');
     } else {
