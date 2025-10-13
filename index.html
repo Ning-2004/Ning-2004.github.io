@@ -1,50 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
-    <title>我的个人主页</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .social-links a {
-            margin: 0 10px;
-            color: #0077b5; /* LinkedIn蓝 */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>青年友善城市介紹</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+  </style>
 </head>
-<body>
-<header>
-    <img class="avatar" src="https://i.imgur.com/你的照片ID.jpg" alt="头像">
-    <h1>你的名字</h1>
-    <p>前端开发者 | 摄影爱好者 | 终身学习者</p>
-</header>
+<body class="bg-gray-100">
+  <div class="container mx-auto px-4 py-8 max-w-4xl">
+    <!-- Header -->
+    <header class="text-center mb-8">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-800">歡迎體驗青年友善城市</h1>
+      <p class="text-lg md:text-xl text-gray-600 mt-4">一個充滿活力與創意的城市，等你來探索！</p>
+    </header>
 
-<section>
-    <h2>👋 关于我</h2>
-    <p>这里写一段自我介绍，例如：</p>
-    <p>「我是来自XX的开发者，擅长HTML/CSS/JavaScript，正在学习React...」</p>
-</section>
+    <!-- Main Content -->
+    <main class="space-y-12">
+      <!-- City Overview -->
+      <section class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">城市概覽</h2>
+        <p class="text-gray-600 leading-relaxed">
+          這座城市以其年輕的氛圍和多元的文化聞名，適合青年探索與成長。從現代化的設施到充滿活力的夜市，這裡為年輕人提供了無限可能。無論你是喜愛藝術、美食還是戶外活動，這裡總有適合你的地方。
+        </p>
+      </section>
 
-<section>
-    <h2>📫 联系我</h2>
-    <div class="social-links">
-        <a href="https://github.com/你的账号">GitHub</a>
-        <a href="mailto:你的邮箱@gmail.com">Email</a>
-    </div>
-</section>
+      <!-- Attractions -->
+      <section class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">熱門景點</h2>
+        <ul class="list-disc list-inside text-gray-600 space-y-2">
+          <li><strong>創意藝術區</strong>：展示本地年輕藝術家的作品，定期舉辦展覽和音樂會。</li>
+          <li><strong>科技體驗館</strong>：互動式科技展覽，讓你親手體驗最新科技。</li>
+          <li><strong>城市公園</strong>：寬敞的綠地，適合野餐、運動和戶外派對。</li>
+        </ul>
+      </section>
+
+      <!-- Activities -->
+      <section class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">青年活動</h2>
+        <p class="text-gray-600 leading-relaxed">
+          城市定期舉辦青年友善活動，包括創業工作坊、街頭表演和文化節慶。加入我們的社群，結識志同道合的朋友，一起創造屬於你的城市故事！
+        </p>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center mt-12 text-gray-600">
+      <p>探索更多資訊，請關注我們的社群媒體！</p>
+    </footer>
+  </div>
 </body>
 </html>
