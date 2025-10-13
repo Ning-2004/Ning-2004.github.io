@@ -10,36 +10,11 @@
     body {
       font-family: 'Noto Sans TC', sans-serif;
     }
-    #login-section, #content-section {
-      transition: opacity 0.3s ease;
-    }
-    .hidden {
-      display: none;
-    }
   </style>
 </head>
 <body class="bg-gray-100">
-<!-- Login Section -->
-<div id="login-section" class="flex items-center justify-center min-h-screen">
-  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">登入</h1>
-    <div class="space-y-4">
-      <div>
-        <label class="block text-gray-700">用戶名</label>
-        <input type="text" id="username" class="w-full p-2 border rounded-md" required>
-      </div>
-      <div>
-        <label class="block text-gray-700">密碼</label>
-        <input type="password" id="password" class="w-full p-2 border rounded-md" required>
-      </div>
-      <button onclick="authenticate()" class="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700">登入</button>
-      <p id="error-message" class="text-red-500 text-center hidden">無效的用戶名或密碼！</p>
-    </div>
-  </div>
-</div>
-
-<!-- Content Section (Initially Hidden) -->
-<div id="content-section" class="container mx-auto px-4 py-8 max-w-4xl hidden">
+<!-- Content Section -->
+<div id="content-section" class="container mx-auto px-4 py-8 max-w-4xl">
   <!-- Header -->
   <header class="text-center mb-8">
     <h1 class="text-4xl md:text-5xl font-bold text-gray-800">歡迎體驗青年友善城市</h1>
@@ -86,37 +61,6 @@
   if (window.location.pathname === '/' || window.location.pathname === '') {
     window.history.replaceState(null, '', '/youth-friendly-city');
   }
-
-  // Check if user is authenticated
-  let isAuthenticated = localStorage.getItem('authenticated') === 'true';
-
-  // Show content if authenticated and on correct path
-  if (window.location.pathname === '/youth-friendly-city' && isAuthenticated) {
-    document.getElementById('login-section').classList.add('hidden');
-    document.getElementById('content-section').classList.remove('hidden');
-  }
-
-  function authenticate() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const errorMessage = document.getElementById('error-message');
-
-    // Hardcoded credentials (not secure for production)
-    if (username === 'admin' && password === 'password') {
-      localStorage.setItem('authenticated', 'true');
-      document.getElementById('login-section').classList.add('hidden');
-      document.getElementById('content-section').classList.remove('hidden');
-    } else {
-      errorMessage.classList.remove('hidden');
-    }
-  }
-
-  // Allow Enter key to trigger authentication
-  document.getElementById('password').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-      authenticate();
-    }
-  });
 </script>
 </body>
 </html>
