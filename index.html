@@ -9,15 +9,14 @@
   <style>
     body {
       font-family: 'SimSun', 'Songti SC', 'Noto Serif SC', serif;
-      background-image: url('IMG_3666.jpg'); /* Local image path */
+      background-image: url('images/IMG_3666.jpg');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
       background-repeat: no-repeat;
     }
     .container {
-      background: rgba(255, 255, 255, 0.9); /* Semi-transparent white overlay */
-      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.75); /* Semi-transparent white overlay */
       padding: 2rem;
     }
     .section-bg {
@@ -34,7 +33,7 @@
       transition: max-height 0.3s ease-out;
     }
     .panel-content.open {
-      max-height: 1000px; /* Adjust based on content size */
+      max-height: 2000px; /* Adjust based on content size */
     }
   </style>
 </head>
@@ -42,26 +41,71 @@
 <div class="container mx-auto px-4 py-8 max-w-6xl">
   <!-- Header -->
   <header class="text-center mb-12">
-    <h1 class="text-4xl md:text-5xl font-bold text-gray-800">無錫不語 只是一味給青年加糖</h1>
+    <h1 class="text-4xl md:text-5xl font-bold text-gray-800">青年友善型城市？無錫不語，只是一味給青年加糖！</h1>
   </header>
 
   <!-- Main Content -->
   <main class="space-y-6">
     <!-- Introduction -->
     <section class="section-bg p-6 rounded-lg shadow-md text-center">
-      <p class="text-gray-600 leading-relaxed">
+      <p class="text-gray-600 leading-relaxed text-lg">
         當別的城市發來“996”邀請函，<br>
         無錫，默默為你推來一罐糖。
       </p>
-      <p class="text-gray-600 leading-relaxed mt-4">
-        甜都之“甜”，不在於無腦加糖，<br>
+      <div class="my-6">
+        <div class="flex flex-col md:flex-row justify-center gap-4 w-1/2 mx-auto">
+          <!-- 第一張圖片 -->
+          <div class="image-container flex-1">
+            <div class="rounded-lg overflow-hidden aspect-square flex items-center justify-center">
+              <img src="images/IMG_4124.jpg" alt="無錫拌麵加白糖" class="w-full h-full object-cover rounded-md">
+            </div>
+            <p class="text-gray-500 text-xs mt-1">無錫拌麵加白糖</p>
+          </div>
+          <!-- 第二張圖片 -->
+          <div class="image-container flex-1">
+            <div class="rounded-lg overflow-hidden aspect-square flex items-center justify-center">
+              <img src="images/IMG_4127.jpg" alt="無錫烏米飯加白糖" class="w-full h-full object-cover rounded-md">
+            </div>
+            <p class="text-gray-500 text-xs mt-1">無錫烏米飯加白糖</p>
+          </div>
+        </div>
+      </div>
+      <p class="text-gray-600 leading-relaxed mt-4 text-lg">
+        甜都之“甜”，<br>
+        不在於吃什麼都無腦加糖，<br>
         而在於將甜意釀進每個日常——<br>
         把奮鬥熬成排骨的醇厚，<br>
         將生活包進小籠的豐盈，<br>
         讓閒暇沁出蜜桃的清新。
       </p>
-      <p class="text-gray-600 leading-relaxed mt-4 font-bold">
-        無錫相信：青年最好的成長，不必苦大仇深，<br>
+      <div class="my-10">
+        <div class="flex flex-col items-center gap-1 w-full mx-auto">
+          <!-- 第一張圖片 -->
+          <div class="image-container w-full max-w-xs">
+            <div class="rounded-lg overflow-hidden aspect-video flex items-center justify-center">
+              <img src="images/IMG_4122.jpg" alt="無錫醬排骨" class="w-full h-full object-cover rounded-md">
+            </div>
+          </div>
+
+          <!-- 第二張圖片 -->
+          <div class="image-container w-full max-w-xs">
+            <div class="rounded-lg overflow-hidden aspect-video flex items-center justify-center">
+              <img src="images/IMG_4130.jpg" alt="無錫小籠包" class="w-full h-full object-cover rounded-md">
+            </div>
+          </div>
+
+          <!-- 第三張圖片 -->
+          <div class="image-container w-full max-w-xs">
+            <div class="rounded-lg overflow-hidden aspect-video flex items-center justify-center">
+              <img src="images/IMG_4128.jpg" alt="無錫水蜜桃" class="w-full h-full object-cover rounded-md">
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="text-gray-600 leading-relaxed mt-4 font-bold text-xl">
+        無錫相信：<br>
+        青年最好的成長，<br>
+        不必苦大仇深，<br>
         也可以是——回味悠長的甘甜。
       </p>
     </section>
@@ -69,13 +113,18 @@
     <!-- 醬排骨 Panel -->
     <section class="section-bg p-6 rounded-lg shadow-md cursor-pointer" onclick="togglePanel('sauce-ribs')">
       <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-4" id="sauce-ribs-header">醬排骨 ｜ 立業之甜：複合醇厚，回味綿長</h2>
-      <div id="sauce-ribs" class="panel-content" aria-expanded="false">
+      <div id="sauce-ribs" class="panel-content open" aria-expanded="true">
         <p class="text-gray-800 leading-relaxed">
-          老字號“三鳳橋”醬排骨的獨特風味，源於十幾種香料的多元配比與數小時文火慢燉的耐心守候。這份複合醇厚的滋味，恰與無錫產業發展的多元格局及對青年立業的長遠規劃相呼應。
+          老字號“三鳳橋”的獨特風味，源於十幾種香料的多元配比與數小時文火慢燉的耐心守候。這份複合醇厚的滋味，恰與無錫產業發展的多元格局及對青年立業的長遠規劃相呼應。
         </p>
         <p class="text-gray-800 leading-relaxed mt-4">
-          物聯網和集成電路兩大“王牌”產業，與生物醫藥、高端製造等優勢領域，相互滲透，協同發展，構建出充滿韌性與活力的創新生態。這些產業集群每年釋放數萬優質崗位，既為青年提供多元化的專業選擇，也鋪就了具備長期抗風險能力的發展路徑。配合租房補貼、校企共建等精准政策，無錫正構建起全方位的青年人才培育生態。
+          物聯網和集成電路兩大“王牌”產業，與生物醫藥、高端製造等優勢領域，相互滲透，協同發展，構建出充滿韌性與活力的創新生態。這些產業集群每年釋放數萬優質崗位，既為青年提供多元化的專業選擇，也鋪就了具備長期抗風險能力的發展路徑。配合租房補貼、校企共建等政策，無錫正構建起全方位的青年人才培育生態。
         </p>
+        <div class="image-container w-full max-w-2xl mx-auto">
+          <div class="rounded-lg overflow-hidden flex items-center justify-center">
+            <img src="images/IMG_4167.jpg" alt="無錫產業" class="w-full h-full object-cover rounded-md">
+          </div>
+        </div>
         <p class="text-gray-800 leading-relaxed mt-4">
           正如醬排骨的滋味在香料與時間淬煉裡漸入佳境，青年在無錫這片多元產業土壤中，也能從初入職場到深耕發展，逐步品味事業成長的綿長回甘。
         </p>
@@ -85,7 +134,7 @@
     <!-- 小籠包 Panel -->
     <section class="section-bg p-6 rounded-lg shadow-md cursor-pointer" onclick="togglePanel('dumpling')">
       <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-4" id="dumpling-header">小籠包 ｜ 宜居之甜：鮮甜滿口，溫暖妥帖</h2>
-      <div id="dumpling" class="panel-content" aria-expanded="false">
+      <div id="dumpling" class="panel-content open" aria-expanded="true">
         <p class="text-gray-800 leading-relaxed">
           無錫小籠包，外形與滬揚蘇杭所見無異，但吸一口湯汁便知內在乾坤——那份鮮甜，更勝一籌。這恰是無錫“宜居”哲學的寫照：不尚浮華，但求內裡溫暖妥帖。
         </p>
@@ -93,8 +142,27 @@
           <div>
             <h3 class="text-lg font-semibold text-gray-700">住房：備好“安居墊”</h3>
             <p class="text-gray-800 leading-relaxed">
-              從租房補貼到購房支持，無錫為青年鋪就夢想之路第一步。房價親民、政策暖心，年輕人不用再為“一套房”掏空“六個口袋”，真正實現“居者有其屋”。
+              從租房補貼到購房支持，無錫為青年鋪就夢想之路第一步。
             </p>
+            <div class="image-container w-full max-w-lg mx-auto">
+              <div class="rounded-lg overflow-hidden flex items-center justify-center">
+                <img src="images/rent.png" alt="租房補貼" class="w-full h-full object-cover rounded-md">
+              </div>
+            </div>
+            <p></p>
+            <div class="image-container w-full max-w-lg mx-auto">
+              <div class="rounded-lg overflow-hidden flex items-center justify-center">
+                <img src="images/purchase.png" alt="購房支持" class="w-full h-full object-cover rounded-md">
+              </div>
+            </div>
+            <p class="text-gray-800 leading-relaxed">
+              房價親民、政策暖心，年輕人不用再為“一套房”掏空“六個口袋”，真正實現“居者有其屋”。
+            </p>
+            <div class="image-container w-full max-w-lg mx-auto">
+              <div class="rounded-lg overflow-hidden flex items-center justify-center">
+                <img src="images/IMG_4161.JPG" alt="房價對比" class="w-full h-full object-cover rounded-md">
+              </div>
+            </div>
           </div>
           <div>
             <h3 class="text-lg font-semibold text-gray-700">交通：織就“省時網”</h3>
@@ -102,11 +170,23 @@
               五條地鐵貫穿城市脈絡，公交微循環深入社區，平均通勤僅32分鐘。無錫以高效路網，換你少點奔波、多些從容。
             </p>
           </div>
+          <div class="image-container w-full max-w-xs mx-auto">
+            <div class="rounded-lg overflow-hidden flex items-center justify-center">
+              <img src="images/IMG_4145.jpg" alt="無錫" class="w-full h-full object-cover rounded-md">
+            </div>
+            <p class="text-gray-500 text-xs mt-1">無錫軌道交通示意圖</p>
+          </div>
           <div>
             <h3 class="text-lg font-semibold text-gray-700">商業：融合“多元場”</h3>
             <p class="text-gray-800 leading-relaxed">
-              從江蘇首家愛馬仕落成，到如今山姆、奧樂齊遍地開花；從宜家、蘋果人氣不減，網紅餐飲接踵而至——高奢大牌與市井煙火在此無縫交融。無錫正以豐盛選擇，兌現對青年的生活承諾。
+              從江蘇首家愛馬仕落成，到如今山姆、奧樂齊遍地開花；從宜家、蘋果人氣不減，到網紅餐飲接踵而至——高奢大牌與市井煙火無縫交融。無錫正以豐盛選擇，兌現對青年的生活承諾。
             </p>
+          </div>
+          <div class="image-container w-full max-w-lg mx-auto">
+            <div class="rounded-lg overflow-hidden flex items-center justify-center">
+              <img src="images/IMG_4160.jpg" alt="無錫熱門消費品牌" class="w-full h-full object-cover rounded-md">
+            </div>
+            <p class="text-gray-500 text-xs mt-1">無錫熱門消費品牌</p>
           </div>
         </div>
       </div>
@@ -115,13 +195,77 @@
     <!-- 水蜜桃 Panel -->
     <section class="section-bg p-6 rounded-lg shadow-md cursor-pointer" onclick="togglePanel('peach')">
       <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-4" id="peach-header">水蜜桃 ｜ 樂活之甜：清甜沁心，鮮活悠然</h2>
-      <div id="peach" class="panel-content" aria-expanded="false">
+      <div id="peach" class="panel-content open" aria-expanded="true">
         <p class="text-gray-800 leading-relaxed">
-          正餐宴罷，無錫以一枚陽山水蜜桃溫柔收尾。輕揭果皮，汁水豐盈的果肉入口，清甜沁心。這抹“鮮活”，正是無錫贈與青年的樂活滋味。
+          正餐宴罷，無錫以陽山水蜜桃溫柔收尾，輕揭果皮，汁水豐盈的果肉入口，清甜沁心。這抹“鮮活”，正是無錫贈予青年的樂活滋味。
         </p>
         <p class="text-gray-800 leading-relaxed mt-4">
-          山湖相依、江河潤澤，無錫四季皆畫：黿頭渚的春櫻、蠡園的夏荷、寄暢園的秋葉、勃公島的冬鷗，風景如詩。這裡既是東林書院“風聲雨聲讀書聲”的回響之地，也是惠山古鎮與清名橋畔可觸摸的歷史現場。而無錫更擁有年輕的一面：經開區藝術展館裡的創意市集、“‘錫馬‘畫中跑，最是江南好”的萬人空巷、“蘇超”賽場高呼“蘇B的B，是必勝的必“的全城狂歡⋯⋯
+          山湖相依、江河潤澤，無錫四季皆畫：黿頭渚的春櫻、蠡園的夏荷、寄暢園的秋葉、渤公島的冬鷗，風景如詩。
         </p>
+        <div class="image-container w-full max-w-md mx-auto">
+          <div class="rounded-lg overflow-hidden flex items-center justify-center">
+            <img src="images/IMG_4137.jpg" alt="無錫四季即景" class="w-full h-full object-cover rounded-md">
+          </div>
+          <p class="text-gray-500 text-xs mt-1">無錫四季即景，自左起依次為黿頭渚、蠡園、寄暢園、渤公島</p>
+        </div>
+        <p class="text-gray-800 leading-relaxed mt-4">
+          這裡既有東林書院“風聲雨聲讀書聲”的回響，也是惠山古鎮與清名橋畔可觸摸的歷史現場。
+        </p>
+        <div class="my-6">
+          <div class="flex flex-col md:flex-row justify-center gap-4 w-2/3 mx-auto">
+            <!-- 第一張圖片 -->
+            <div class="image-container flex-1">
+              <div class="rounded-lg overflow-hidden aspect-square flex items-center justify-center">
+                <img src="images/IMG_4139.jpg" alt="無錫東林書院" class="w-full h-full object-cover rounded-md">
+              </div>
+              <p class="text-gray-500 text-xs mt-1">無錫東林書院，有楹聯“風聲雨聲讀書聲聲聲入耳，家事國事天下事事事關心”</p>
+            </div>
+            <!-- 第二張圖片 -->
+            <div class="image-container flex-1">
+              <div class="rounded-lg overflow-hidden aspect-square flex items-center justify-center">
+                <img src="images/IMG_4140.jpg" alt="無錫惠山古鎮" class="w-full h-full object-cover rounded-md">
+              </div>
+              <p class="text-gray-500 text-xs mt-1">無錫惠山古鎮</p>
+            </div>
+            <!-- 第三張圖片 -->
+            <div class="image-container flex-1">
+              <div class="rounded-lg overflow-hidden aspect-square flex items-center justify-center">
+                <img src="images/IMG_4141.jpg" alt="無錫清名橋" class="w-full h-full object-cover rounded-md">
+              </div>
+              <p class="text-gray-500 text-xs mt-1">無錫清名橋</p>
+            </div>
+          </div>
+        </div>
+        <p class="text-gray-800 leading-relaxed mt-4">
+          另一面的無錫，又充滿新活力：推陳出新的文創市集、“‘錫馬‘畫中跑，最是江南好”的萬人空巷、“蘇超”賽場高呼“蘇B的B，是必勝的必“的全城狂歡⋯⋯
+        </p>
+        <div class="my-10">
+          <div class="flex flex-col items-center gap-2 w-full mx-auto">
+            <!-- 第一張圖片 -->
+            <div class="image-container w-full max-w-xs">
+              <div class="rounded-lg overflow-hidden aspect-video flex items-center justify-center">
+                <img src="images/IMG_4144.jpg" alt="無錫嶼河集" class="w-full h-full object-cover rounded-md">
+              </div>
+              <p class="text-gray-500 text-xs mt-1">無錫嶼河集:運河藝術秋日雅集</p>
+            </div>
+
+            <!-- 第二張圖片 -->
+            <div class="image-container w-full max-w-xs">
+              <div class="rounded-lg overflow-hidden aspect-video flex items-center justify-center">
+                <img src="images/IMG_3677.jpg" alt="無錫馬拉松" class="w-full h-full object-cover rounded-md">
+              </div>
+              <p class="text-gray-500 text-xs mt-1">無錫2025國際馬拉松：人在畫中跑</p>
+            </div>
+
+            <!-- 第三張圖片 -->
+            <div class="image-container w-full max-w-xs">
+              <div class="rounded-lg overflow-hidden aspect-video flex items-center justify-center">
+                <img src="images/IMG_3679.jpg" alt="蘇超無錫賽場" class="w-full h-full object-cover rounded-md">
+              </div>
+              <p class="text-gray-500 text-xs mt-1">“蘇超”無錫隊主場對戰徐州隊現場</p>
+            </div>
+          </div>
+        </div>
         <p class="text-gray-800 leading-relaxed mt-4">
           自然與人文、傳統與現代在此交融共生，正如水蜜桃有“白鳳”多汁、“湖景”濃甜，無錫也以多元文化體驗，為每位青年定制屬於自己的小確幸。
         </p>
@@ -130,14 +274,19 @@
 
     <!-- Conclusion -->
     <section class="section-bg p-6 rounded-lg shadow-md text-center">
-      <p class="text-gray-600 leading-relaxed">
+      <p class="text-gray-600 leading-relaxed text-xl">
         無錫不信奉“吃得苦中苦，方為人上人”，<br>
         她用“甜”重新定義成長的配方——<br>
         產業為灶，政策為火，為事業慢熬一份復合醇厚；<br>
         住房為皮，交通為餡，商業為汁，為生活包攏一腔溫暖妥帖；<br>
         山水為底色，文化為風物，為心靈注入一抹清新生動。
       </p>
-      <p class="text-gray-600 leading-relaxed mt-4 font-bold">
+      <div class="image-container w-full max-w-2xl mx-auto">
+        <div class="rounded-lg overflow-hidden flex items-center justify-center">
+          <img src="images/IMG_3659.jpg" alt="無錫航拍" class="w-full h-full object-cover rounded-md">
+        </div>
+      </div>
+      <p class="text-gray-600 leading-relaxed mt-4 font-bold text-2xl">
         無錫不語，卻已將最好的滋味，悉數奉予扎根於此的青年。
       </p>
     </section>
@@ -145,7 +294,21 @@
 
   <!-- Footer -->
   <footer class="text-center mt-12 text-gray-600">
-    <p>作者：王煜寧  字數：1199字</p>
+    <p>作者：王煜寧  字數：1198字</p>
+    <p>本評估使用了生成式人工智能工具協助完成。具體使用範圍為：協助整理網頁html代碼。</p>
+    <p>本評估中使用的圖片均來自於社交平台小紅書。</p>
+    <!-- 引用文獻 -->
+    <div class="mt-6 pt-6 border-t border-gray-200">
+      <h3 class="text-lg font-semibold text-gray-700 mb-3 text-center">參考文獻</h3>
+      <div class="reference-list text-gray-600 space-y-2">
+        <p>城市产业画像系列：2023年无锡市全景分析报告. (2023).</p>
+        <p>二〇二四年十月中国主要城市通勤监测报告. (2024). 中国城市规划设计研究院.</p>
+        <p>澎湃新聞. (2025). 新城市志｜無錫，何以江南？. Thepaper.cn. https://m.thepaper.cn/newsDetail_forward_30165222</p>
+        <p>全國城市房租排行_近20年房租數據-中國房價行情. (2025). Creprice.cn. https://www.creprice.cn/rankprice/rent/11.html</p>
+        <p>無錫體育. (2023). 錫馬畫中跑，最是江南好.</p>
+        <p>星船知造. (2025). 沒有巨頭的江南"小城"，靠什麼人均GDP四超上海？. Tmtpost.com. https://www.tmtpost.com/7612799.html</p>
+      </div>
+    </div>
   </footer>
 </div>
 
