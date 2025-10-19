@@ -3,29 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>青年友好型城市？無錫不語，只是一味給青年加糖！</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+  <title>青年友善型城市·無錫</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      font-family: 'Noto Sans TC', sans-serif;
+      font-family: 'SimSun', 'Songti SC', 'Noto Serif SC', serif;
+      background-image: url('IMG_3666.jpg'); /* Local image path */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.9); /* Semi-transparent white overlay */
+      border-radius: 1rem;
+      padding: 2rem;
     }
     .section-bg {
-      background: linear-gradient(to bottom, #dd5a8b, #c89dba, #3faee3);
+      background: linear-gradient(to bottom, rgba(255, 228, 225, 0.9), rgba(240, 249, 255, 0.9));
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .section-bg:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+    .panel-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    .panel-content.open {
+      max-height: 1000px; /* Adjust based on content size */
     }
   </style>
 </head>
-<body class="bg-gray-100">
-<div class="container mx-auto px-4 py-8 max-w-4xl">
+<body>
+<div class="container mx-auto px-4 py-8 max-w-6xl">
   <!-- Header -->
   <header class="text-center mb-12">
     <h1 class="text-4xl md:text-5xl font-bold text-gray-800">無錫不語 只是一味給青年加糖</h1>
   </header>
 
   <!-- Main Content -->
-  <main class="space-y-12">
+  <main class="space-y-6">
     <!-- Introduction -->
-    <section class="section-bg p-6 rounded-lg shadow-md">
+    <section class="section-bg p-6 rounded-lg shadow-md text-center">
       <p class="text-gray-600 leading-relaxed">
         當別的城市發來“996”邀請函，<br>
         無錫，默默為你推來一罐糖。
@@ -43,67 +66,70 @@
       </p>
     </section>
 
-    <!-- 醬排骨 Section -->
-    <section class="section-bg p-6 rounded-lg shadow-md">
-      <div class="flex items-center mb-4">
-        <img src="IMG_4122.jpg" alt="Sauce Ribs" class="w-12 h-12 mr-4">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">醬排骨 ｜ 立業之甜：複合醇厚，回味綿長</h2>
-      </div>
-      <p class="text-gray-600 leading-relaxed">
-        老字號“三鳳橋”醬排骨的獨特風味，源於十幾種香料的多元配比與數小時文火慢燉的耐心守候。這份複合醇厚的滋味，恰與無錫產業發展的多元格局及對青年立業的長遠規劃相呼應。
-      </p>
-      <p class="text-gray-600 leading-relaxed mt-4">
-        物聯網和集成電路兩大“王牌”產業，與生物醫藥、高端製造等優勢領域，相互滲透，協同發展，構建出充滿韌性與活力的創新生態。這些產業集群每年釋放數萬優質崗位，既為青年提供多元化的專業選擇，也鋪就了具備長期抗風險能力的發展路徑。配合租房補貼、校企共建等精准政策，無錫正構建起全方位的青年人才培育生態。
-      </p>
-      <p class="text-gray-600 leading-relaxed mt-4">
-        正如醬排骨的滋味在香料與時間淬煉裡漸入佳境，青年在無錫這片多元產業土壤中，也能從初入職場到深耕發展，逐步品味事業成長的綿長回甘。
-      </p>
-    </section>
-
-    <!-- 小籠包 Section -->
-    <section class="section-bg p-6 rounded-lg shadow-md">
-      <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">小籠包 ｜ 宜居之甜：鮮甜滿口，溫暖妥帖</h2>
-      <p class="text-gray-600 leading-relaxed">
-        無錫小籠包，外形與滬揚蘇杭所見無異，但吸一口湯汁便知內在乾坤——那份鮮甜，更勝一籌。這恰是無錫“宜居”哲學的寫照：不尚浮華，但求內裡溫暖妥帖。
-      </p>
-      <div class="mt-4 space-y-4">
-        <div>
-          <h3 class="text-lg font-semibold text-gray-700">住房：備好“安居墊”</h3>
-          <p class="text-gray-600 leading-relaxed">
-            從租房補貼到購房支持，無錫為青年鋪就夢想之路第一步。房價親民、政策暖心，年輕人不用再為“一套房”掏空“六個口袋”，真正實現“居者有其屋”。
-          </p>
-        </div>
-        <div>
-          <h3 class="text-lg font-semibold text-gray-700">交通：織就“省時網”</h3>
-          <p class="text-gray-600 leading-relaxed">
-            五條地鐵貫穿城市脈絡，公交微循環深入社區，平均通勤僅32分鐘。無錫以高效路網，換你少點奔波、多些從容。
-          </p>
-        </div>
-        <div>
-          <h3 class="text-lg font-semibold text-gray-700">商業：融合“多元場”</h3>
-          <p class="text-gray-600 leading-relaxed">
-            從江蘇首家愛馬仕落成，到如今山姆、奧樂齊遍地開花；從宜家、蘋果人氣不減，網紅餐飲接踵而至——高奢大牌與市井煙火在此無縫交融。無錫正以豐盛選擇，兌現對青年的生活承諾。
-          </p>
-        </div>
+    <!-- 醬排骨 Panel -->
+    <section class="section-bg p-6 rounded-lg shadow-md cursor-pointer" onclick="togglePanel('sauce-ribs')">
+      <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-4" id="sauce-ribs-header">醬排骨 ｜ 立業之甜：複合醇厚，回味綿長</h2>
+      <div id="sauce-ribs" class="panel-content" aria-expanded="false">
+        <p class="text-gray-800 leading-relaxed">
+          老字號“三鳳橋”醬排骨的獨特風味，源於十幾種香料的多元配比與數小時文火慢燉的耐心守候。這份複合醇厚的滋味，恰與無錫產業發展的多元格局及對青年立業的長遠規劃相呼應。
+        </p>
+        <p class="text-gray-800 leading-relaxed mt-4">
+          物聯網和集成電路兩大“王牌”產業，與生物醫藥、高端製造等優勢領域，相互滲透，協同發展，構建出充滿韌性與活力的創新生態。這些產業集群每年釋放數萬優質崗位，既為青年提供多元化的專業選擇，也鋪就了具備長期抗風險能力的發展路徑。配合租房補貼、校企共建等精准政策，無錫正構建起全方位的青年人才培育生態。
+        </p>
+        <p class="text-gray-800 leading-relaxed mt-4">
+          正如醬排骨的滋味在香料與時間淬煉裡漸入佳境，青年在無錫這片多元產業土壤中，也能從初入職場到深耕發展，逐步品味事業成長的綿長回甘。
+        </p>
       </div>
     </section>
 
-    <!-- 水蜜桃 Section -->
-    <section class="section-bg p-6 rounded-lg shadow-md">
-      <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">水蜜桃 ｜ 樂活之甜：清甜沁心，鮮活悠然</h2>
-      <p class="text-gray-600 leading-relaxed">
-        正餐宴罷，無錫以一枚陽山水蜜桃溫柔收尾。輕揭果皮，汁水豐盈的果肉入口，清甜沁心。這抹“鮮活”，正是無錫贈與青年的樂活滋味。
-      </p>
-      <p class="text-gray-600 leading-relaxed mt-4">
-        山湖相依、江河潤澤，無錫四季皆畫：黿頭渚的春櫻、蠡園的夏荷、寄暢園的秋葉、勃公島的冬鷗，風景如詩。這裡既是東林書院“風聲雨聲讀書聲”的回響之地，也是惠山古鎮與清名橋畔可觸摸的歷史現場。而無錫更擁有年輕的一面：經開區藝術展館裡的創意市集、“‘錫馬‘畫中跑，最是江南好”的萬人空巷、“蘇超”賽場高呼“蘇B的B，是必勝的必“的全城狂歡⋯⋯
-      </p>
-      <p class="text-gray-600 leading-relaxed mt-4">
-        自然與人文、傳統與現代在此交融共生，正如水蜜桃有“白鳳”多汁、“湖景”濃甜，無錫也以多元文化體驗，為每位青年定制屬於自己的小確幸。
-      </p>
+    <!-- 小籠包 Panel -->
+    <section class="section-bg p-6 rounded-lg shadow-md cursor-pointer" onclick="togglePanel('dumpling')">
+      <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-4" id="dumpling-header">小籠包 ｜ 宜居之甜：鮮甜滿口，溫暖妥帖</h2>
+      <div id="dumpling" class="panel-content" aria-expanded="false">
+        <p class="text-gray-800 leading-relaxed">
+          無錫小籠包，外形與滬揚蘇杭所見無異，但吸一口湯汁便知內在乾坤——那份鮮甜，更勝一籌。這恰是無錫“宜居”哲學的寫照：不尚浮華，但求內裡溫暖妥帖。
+        </p>
+        <div class="mt-4 space-y-4">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-700">住房：備好“安居墊”</h3>
+            <p class="text-gray-800 leading-relaxed">
+              從租房補貼到購房支持，無錫為青年鋪就夢想之路第一步。房價親民、政策暖心，年輕人不用再為“一套房”掏空“六個口袋”，真正實現“居者有其屋”。
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-700">交通：織就“省時網”</h3>
+            <p class="text-gray-800 leading-relaxed">
+              五條地鐵貫穿城市脈絡，公交微循環深入社區，平均通勤僅32分鐘。無錫以高效路網，換你少點奔波、多些從容。
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-700">商業：融合“多元場”</h3>
+            <p class="text-gray-800 leading-relaxed">
+              從江蘇首家愛馬仕落成，到如今山姆、奧樂齊遍地開花；從宜家、蘋果人氣不減，網紅餐飲接踵而至——高奢大牌與市井煙火在此無縫交融。無錫正以豐盛選擇，兌現對青年的生活承諾。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 水蜜桃 Panel -->
+    <section class="section-bg p-6 rounded-lg shadow-md cursor-pointer" onclick="togglePanel('peach')">
+      <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-4" id="peach-header">水蜜桃 ｜ 樂活之甜：清甜沁心，鮮活悠然</h2>
+      <div id="peach" class="panel-content" aria-expanded="false">
+        <p class="text-gray-800 leading-relaxed">
+          正餐宴罷，無錫以一枚陽山水蜜桃溫柔收尾。輕揭果皮，汁水豐盈的果肉入口，清甜沁心。這抹“鮮活”，正是無錫贈與青年的樂活滋味。
+        </p>
+        <p class="text-gray-800 leading-relaxed mt-4">
+          山湖相依、江河潤澤，無錫四季皆畫：黿頭渚的春櫻、蠡園的夏荷、寄暢園的秋葉、勃公島的冬鷗，風景如詩。這裡既是東林書院“風聲雨聲讀書聲”的回響之地，也是惠山古鎮與清名橋畔可觸摸的歷史現場。而無錫更擁有年輕的一面：經開區藝術展館裡的創意市集、“‘錫馬‘畫中跑，最是江南好”的萬人空巷、“蘇超”賽場高呼“蘇B的B，是必勝的必“的全城狂歡⋯⋯
+        </p>
+        <p class="text-gray-800 leading-relaxed mt-4">
+          自然與人文、傳統與現代在此交融共生，正如水蜜桃有“白鳳”多汁、“湖景”濃甜，無錫也以多元文化體驗，為每位青年定制屬於自己的小確幸。
+        </p>
+      </div>
     </section>
 
     <!-- Conclusion -->
-    <section class="section-bg p-6 rounded-lg shadow-md">
+    <section class="section-bg p-6 rounded-lg shadow-md text-center">
       <p class="text-gray-600 leading-relaxed">
         無錫不信奉“吃得苦中苦，方為人上人”，<br>
         她用“甜”重新定義成長的配方——<br>
@@ -122,5 +148,16 @@
     <p>作者：王煜寧  字數：1199字</p>
   </footer>
 </div>
+
+<script>
+  function togglePanel(panelId) {
+    const content = document.getElementById(panelId);
+    const header = document.getElementById(`${panelId}-header`);
+    const isOpen = content.classList.contains('open');
+    content.classList.toggle('open', !isOpen);
+    content.setAttribute('aria-expanded', !isOpen);
+    header.classList.toggle('text-orange-800', !isOpen);
+  }
+</script>
 </body>
 </html>
