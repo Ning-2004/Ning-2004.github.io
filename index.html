@@ -1,173 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yuning Wang | Portfolio</title>
-    <style>
-        :root {
-            --primary-blue: #0071e3;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --text-color: #f5f5f7;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yuning Wang | CS & AI Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00d2ff;
+      --accent: #3a7bd5;
+      --glass: rgba(15, 15, 20, 0.9);
+      --text: #f5f5f7;
+      --card-bg: rgba(255, 255, 255, 0.05);
+    }
 
-        body {
-            margin: 0;
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: #000;
-            color: var(--text-color);
-            overflow-x: hidden;
-        }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0c;
+      color: var(--text);
+      overflow-x: hidden;
+    }
 
-        /* Animated Background */
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
+    #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; }
 
-        /* Glassmorphism Container */
-        .container {
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 40px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
+    .main-container {
+      max-width: 1300px;
+      margin: 60px auto;
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 30px;
+      padding: 0 20px;
+    }
 
-        header {
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
+    /* Sidebar Profile */
+    .sidebar {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      height: fit-content;
+      position: sticky;
+      top: 60px;
+    }
 
-        h1 { font-size: 2.5rem; margin-bottom: 10px; color: var(--primary-blue); }
-        h2 { font-size: 1.5rem; color: #86868b; font-weight: 400; }
+    .portrait {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-        .section-title {
-            color: var(--primary-blue);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-            margin-top: 40px;
-        }
+    .sidebar h1 { font-size: 1.8rem; margin: 10px 0; color: #fff; }
+    .sidebar p { font-size: 0.9rem; color: #86868b; line-height: 1.4; }
+    .contact-links { margin-top: 20px; list-style: none; padding: 0; }
+    .contact-links li { margin: 10px 0; font-size: 0.85rem; }
+    .contact-links a { color: var(--primary); text-decoration: none; }
 
-        .project-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 12px;
-            margin: 15px 0;
-            transition: transform 0.3s ease;
-        }
+    /* Main Content Area */
+    .content-area {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+    }
 
-        .project-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
-        }
+    .tabs-nav {
+      display: flex;
+      background: rgba(0,0,0,0.2);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
 
-        .badge {
-            display: inline-block;
-            padding: 4px 12px;
-            background: var(--primary-blue);
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-right: 5px;
-        }
+    .tab-btn {
+      flex: 1;
+      padding: 20px;
+      border: none;
+      background: none;
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 600;
+      opacity: 0.5;
+      transition: 0.3s;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
 
-        nav a {
-            color: var(--text-color);
-            text-decoration: none;
-            margin: 0 15px;
-            opacity: 0.7;
-            transition: 0.3s;
-        }
+    .tab-btn.active { opacity: 1; color: var(--primary); border-bottom: 2px solid var(--primary); }
 
-        nav a:hover { opacity: 1; color: var(--primary-blue); }
-    </style>
+    .tab-pane { padding: 40px; display: none; animation: slideUp 0.4s ease-out; }
+    .tab-pane.active { display: block; }
+
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Content Styling */
+    .entry { margin-bottom: 30px; position: relative; }
+    .entry-header { display: flex; justify-content: space-between; align-items: baseline; }
+    .entry h3 { margin: 0; color: #fff; font-size: 1.2rem; }
+    .entry .sub { color: var(--primary); font-weight: 600; font-size: 0.95rem; display: block; margin-top: 4px; }
+    .entry .date { color: #86868b; font-size: 0.85rem; }
+    .entry ul { padding-left: 18px; color: #a1a1a6; font-size: 0.9rem; }
+    .tag { background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; margin-right: 5px; }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+    .stat-card { background: var(--card-bg); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+    .stat-card small { color: var(--primary); display: block; font-size: 0.7rem; text-transform: uppercase; }
+    .stat-card span { font-size: 1.1rem; font-weight: 600; }
+  </style>
 </head>
 <body>
 
-    <canvas id="bg-canvas"></canvas>
+<canvas id="bg-canvas"></canvas>
 
-    <div class="container">
-        <header>
-            <h1>Yuning Wang</h1>
-            <h2>Computer Science @ HKUST | AI & Data Science</h2>
-            <nav>
-                <a href="mailto:wyning2004@gmail.com">Email</a>
-                <a href="https://linkedin.com/in/yuning-wang-10888a321/">LinkedIn</a>
-                <a href="#">GitHub</a>
-            </nav>
-        </header>
+<div class="main-container">
+  <aside class="sidebar">
+    <img src="images/portrait.jpg" alt="Yuning Wang" class="portrait">
+    <h1>Yuning WANG</h1>
+    <p>BEng in Computer Science<br>Minor in Mathematics<br>HKUST '26</p>
 
-        <section id="about">
-            <p>Final year Computer Science student at HKUST (CGA: 4.064/4.3). Passionate about Machine Learning, NLP, and Data Visualization.</p>
-        </section>
+    <ul class="contact-links">
+      <li>📍 Hong Kong</li>
+      <li>📧 <a href="mailto:wyning2004@gmail.com">wyning2004@gmail.com</a></li>
+      <li>🔗 <a href="https://linkedin.com/in/yuning-wang-10888a321/">LinkedIn</a></li>
+    </ul>
+  </aside>
 
-        <h3 class="section-title">Education</h3>
-        <div class="project-card">
-            <strong>The Hong Kong University of Science and Technology</strong><br>
-            BEng in Computer Science, Minor in Mathematics (Rank 3/145) [2022-2026]
+  <main class="content-area">
+    <nav class="tabs-nav">
+      <button class="tab-btn active" onclick="showTab('edu')">Education</button>
+      <button class="tab-btn" onclick="showTab('exp')">Experience</button>
+      <button class="tab-btn" onclick="showTab('proj')">Projects</button>
+      <button class="tab-btn" onclick="showTab('skill')">Skills & Honors</button>
+    </nav>
+
+    <section id="edu" class="tab-pane active">
+      <div class="entry">
+        <div class="entry-header">
+          <h3>The Hong Kong University of Science and Technology (HKUST)</h3>
+          <span class="date">Sep 2022 - Jun 2026</span>
         </div>
-
-        <h3 class="section-title">Key Projects</h3>
-        <div class="project-card">
-            <strong>RoboAnalyzer</strong>
-            <p>Architected an automated pipeline identifying emergent stocks integrating LLM agents for analysis.</p>
-            <span class="badge">LLM</span> <span class="badge">Python</span> <span class="badge">Streamlit</span>
+        <span class="sub">BEng in Computer Science, Minor in Mathematics | Hong Kong</span>
+        <ul>
+          <li>CGA: 4.003/4.3 | Rank: 4/145</li>
+          <li>GRE: V 152 | Q 170 | AW 4.0</li>
+          <li>Distinction: Algorithms, AI, Data Viz, OS, Probability & Stats.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div class="entry-header">
+          <h3>Royal Institute of Technology (KTH)</h3>
+          <span class="date">Jan - Jun 2025</span>
         </div>
-
-        <div class="project-card">
-            <strong>Weather TV Transcription (HKO)</strong>
-            <p>Deployed a distilled LLM achieving >90% size reduction while preserving bilingual quality.</p>
-            <span class="badge">PyTorch</span> <span class="badge">React</span> <span class="badge">FastAPI</span>
+        <span class="sub">Exchange Student (EECS) | Stockholm, Sweden</span>
+        <ul>
+          <li>Performed excellently in all academic courses,including Software Engineering, Information Visualization, Deep
+            Learning in Data Science and Optimization.</li>
+          <li>Gained a deeper understanding of Swedish history, society and culture.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div class="entry-header">
+          <h3>Universidad San Francisco de Quito (USFQ)</h3>
+          <span class="date">Oct - Dec 2025</span>
         </div>
+        <span class="sub">Virtual Exchange Student | Quito,Ecuador</span>
+        <ul>
+          <li>Developed fundamental drawing skills for instance still life and landscape.</li>
+        </ul>
+      </div>
+    </section>
 
-        <h3 class="section-title">Skills</h3>
-        <p>Python, Java, C/C++, JavaScript, PyTorch, Hugging Face, Docker, SQL</p>
-    </div>
+    <section id="exp" class="tab-pane">
+      <div class="entry">
+        <div class="entry-header">
+          <h3>Hong Kong Observatory (HKO)</h3>
+          <span class="date">Jun - Aug 2025</span>
+        </div>
+        <span class="sub">Summer Placement, IT Management</span>
+        <ul>
+          <li>Deployed distilled LLM for automated weather transcription using FastAPI/React.</li>
+          <li>Achieved >90% model reduction via 4-bit quantization while keeping bilingual quality.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div class="entry-header">
+          <h3>HKUST Library</h3>
+          <span class="date">Sep - Dec 2024</span>
+        </div>
+        <span class="sub">Developer, DS Colab Project</span>
+        <ul>
+          <li>Built a bilingual topic modeling app using Streamlit and BERTopic.</li>
+          <li>Developed custom Chinese text segmentation for non-English datasets.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div class="entry-header">
+          <h3>Teaching & Leadership</h3>
+          <span class="date">2023 - 2026</span>
+        </div>
+        <ul>
+          <li>Undergraduate TA for COMP1023 (Python Programming).</li>
+          <li>Deputy Head Student Ambassador (URAO), leading Greater China recruitment.</li>
+        </ul>
+      </div>
+    </section>
 
-    <script>
-        // Simple Particle Background Effect
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+    <section id="proj" class="tab-pane">
+      <div class="entry">
+        <div class="entry-header">
+          <h3>RoboAnalyzer: Stock Analysis System</h3>
+          <span class="date">2025 - Present</span>
+        </div>
+        <span class="sub">Final Year Project | Prof. Yangqiu Song</span>
+        <p><small>Architected a pipeline identifying emergent stocks using LLM agents and Backtrader.</small></p>
+        <div><span class="tag">LLM Agents</span><span class="tag">Backtrader</span><span class="tag">Streamlit</span></div>
+      </div>
+      <div class="entry">
+        <div class="entry-header">
+          <h3>Vision Fine-tuning (LoRA)</h3>
+          <span class="date">Apr - May 2025</span>
+        </div>
+        <span class="sub">KTH Course Project | Prof. Josephine Sullivan</span>
+        <p><small>Awarded "Best Report of the Batch" for comparative study of ResNet152 vs. ViT.</small></p>
+        <div><span class="tag">PyTorch</span><span class="tag">LoRA</span><span class="tag">Vision Transformers</span></div>
+      </div>
+    </section>
 
-        function init() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            for(let i=0; i<100; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5
-                });
-            }
-        }
+    <section id="skill" class="tab-pane">
+      <h3>Technical Toolkit</h3>
+      <p><strong>Programming:</strong> Python, Java, C/C++, Go, SQL, JavaScript, LaTeX</p>
+      <p><strong>AI/Data:</strong> PyTorch, Hugging Face, Pandas, OpenCV, BERTopic</p>
 
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#0071e3';
-            particles.forEach(p => {
-                p.x += p.vx; p.y += p.vy;
-                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, 1.5, 0, Math.PI*2);
-                ctx.fill();
-            });
-            requestAnimationFrame(draw);
-        }
+      <h3 style="margin-top:40px">Honors & Awards</h3>
+      <ul style="list-style: none; padding: 0;">
+        <li>🏆 University Admission Scholarship (Full Tuition + Living)</li>
+        <li>🏆 Mr. Andrew Shiu-Keung Fung Scholarship</li>
+        <li>🏆 Lee Hysan Foundation Exchange Scholarship (2025)</li>
+        <li>🏆 SENG Dean's List (Every semester)</li>
+      </ul>
+    </section>
+  </main>
+</div>
 
-        init();
-        draw();
-        window.onresize = init;
-    </script>
+<script>
+  function showTab(tabId) {
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  // Modern Background Animation
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function init() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    particles = [];
+    for(let i=0; i<60; i++) {
+      particles.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        r: Math.random()*2+1,
+        v: Math.random()*0.5 + 0.2
+      });
+    }
+  }
+
+  function animate() {
+    ctx.fillStyle = "#0a0a0c";
+    ctx.fillRect(0,0,canvas.width, canvas.height);
+    ctx.fillStyle = "rgba(0, 210, 255, 0.3)";
+    particles.forEach(p => {
+      p.y -= p.v;
+      if(p.y < 0) p.y = canvas.height;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fill();
+    });
+    requestAnimationFrame(animate);
+  }
+
+  init(); animate();
+  window.addEventListener('resize', init);
+</script>
 </body>
 </html>
