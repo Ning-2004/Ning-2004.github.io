@@ -3,109 +3,267 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
   <title>Yuning Wang | Computer Science and AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #07131f;
-      --bg-soft: rgba(7, 19, 31, 0.74);
-      --panel: rgba(9, 26, 43, 0.78);
-      --panel-strong: rgba(8, 22, 36, 0.92);
-      --line: rgba(153, 221, 255, 0.16);
-      --text: #eef7fb;
-      --muted: #9ab5c7;
-      --accent: #82d7ff;
-      --accent-strong: #1fb6ff;
-      --accent-soft: rgba(130, 215, 255, 0.14);
-      --shadow: 0 28px 70px rgba(0, 0, 0, 0.32);
+      color-scheme: light;
+      --topbar-height: 64px;
+      --font-sans: 'Manrope', sans-serif;
+      --font-serif: 'Source Serif 4', serif;
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 3rem;
+      --space-8: 4rem;
+      --radius-sm: 14px;
+      --radius-md: 20px;
+      --radius-lg: 28px;
+      --radius-pill: 999px;
+      --bg: #f3f0ea;
+      --bg-elevated: rgba(255, 252, 247, 0.92);
+      --bg-soft: #ebe6de;
+      --panel: rgba(255, 252, 247, 0.84);
+      --panel-strong: rgba(255, 250, 245, 0.96);
+      --line: rgba(57, 73, 86, 0.16);
+      --line-strong: rgba(57, 73, 86, 0.26);
+      --text: #17212b;
+      --text-strong: #101820;
+      --muted: #566574;
+      --accent: #355c7d;
+      --accent-strong: #27455f;
+      --accent-soft: rgba(53, 92, 125, 0.12);
+      --shadow-sm: 0 10px 30px rgba(23, 33, 43, 0.06);
+      --shadow-md: 0 24px 60px rgba(23, 33, 43, 0.08);
+      --focus-ring: 0 0 0 3px rgba(53, 92, 125, 0.22);
+      --transition-fast: 180ms ease;
+      --transition-base: 260ms ease;
     }
 
-    * {
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #141b20;
+      --bg-elevated: rgba(28, 36, 42, 0.9);
+      --bg-soft: #1b242b;
+      --panel: rgba(24, 32, 38, 0.84);
+      --panel-strong: rgba(22, 29, 35, 0.96);
+      --line: rgba(203, 214, 222, 0.12);
+      --line-strong: rgba(203, 214, 222, 0.2);
+      --text: #edf1f3;
+      --text-strong: #f7f9fa;
+      --muted: #b1bcc4;
+      --accent: #9eb7c7;
+      --accent-strong: #c7d4dc;
+      --accent-soft: rgba(158, 183, 199, 0.14);
+      --shadow-sm: 0 12px 30px rgba(0, 0, 0, 0.22);
+      --shadow-md: 0 28px 70px rgba(0, 0, 0, 0.28);
+      --focus-ring: 0 0 0 3px rgba(158, 183, 199, 0.24);
+    }
+
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
       margin: 0;
-      font-family: 'Manrope', sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(31, 182, 255, 0.22), transparent 28%),
-        radial-gradient(circle at right 20%, rgba(130, 215, 255, 0.16), transparent 24%),
-        linear-gradient(135deg, #04111d 0%, #081a2b 52%, #031019 100%);
       min-height: 100vh;
       overflow-x: hidden;
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(53, 92, 125, 0.08), transparent 26%),
+        linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 85%, var(--bg-soft)) 100%);
+      transition: background-color var(--transition-base), color var(--transition-base);
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
     }
 
     a {
-      color: inherit;
+      color: var(--accent-strong);
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.18em;
+      transition: color var(--transition-fast), text-decoration-color var(--transition-fast);
     }
 
-    #bg-canvas {
+    a:hover {
+      color: var(--text-strong);
+      text-decoration-color: currentColor;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
+
+    .site-shell {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .site-shell::before {
+      content: "";
       position: fixed;
       inset: 0;
       z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at top right, rgba(53, 92, 125, 0.1), transparent 24%),
+        radial-gradient(circle at left 20%, rgba(53, 92, 125, 0.06), transparent 18%);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--panel-strong) 92%, var(--bg));
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 6px 24px rgba(23, 33, 43, 0.06);
+    }
+
+    .topbar-inner {
+      width: min(1320px, calc(100% - 32px));
+      margin: 0 auto;
+      min-height: var(--topbar-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-5);
+    }
+
+    .site-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-width: 0;
+      color: var(--text-strong);
+      text-decoration: none;
+    }
+
+    .site-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .site-brand-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-strong);
     }
 
     .main-container {
-      width: min(1240px, calc(100% - 32px));
-      margin: 36px auto;
+      width: min(1320px, calc(100% - 32px));
+      margin: var(--space-4) auto var(--space-7);
       display: grid;
-      grid-template-columns: 330px 1fr;
-      gap: 28px;
+      grid-template-columns: minmax(280px, 332px) minmax(0, 1fr);
+      gap: var(--space-5);
       align-items: start;
     }
 
     .sidebar,
     .content-area {
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
       border: 1px solid var(--line);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      transition: background-color var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
     }
 
     .sidebar {
       position: sticky;
-      top: 28px;
-      background: linear-gradient(180deg, rgba(9, 27, 42, 0.94), rgba(7, 19, 31, 0.88));
-      border-radius: 28px;
-      padding: 28px;
+      top: calc(var(--topbar-height) + var(--space-4));
+      align-self: start;
+      max-height: calc(100vh - var(--topbar-height) - (var(--space-4) * 2));
+      overflow-y: auto;
+      padding: var(--space-6);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, var(--panel-strong), var(--panel));
     }
 
     .portrait {
-      width: 100%;
-      display: block;
-      border-radius: 22px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.34);
-      margin-bottom: 24px;
+      width: clamp(120px, 34vw, 168px);
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius-md) + 2px);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: var(--space-5);
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .sidebar h1,
     .tab-pane h2 {
-      font-family: 'Source Serif 4', serif;
       margin: 0;
+      font-family: var(--font-serif);
     }
 
     .sidebar h1 {
-      font-size: 2.4rem;
+      font-size: clamp(2.25rem, 4vw, 3rem);
       line-height: 0.95;
-      margin-top: 18px;
+      letter-spacing: -0.03em;
     }
 
-    .headline {
-      margin: 16px 0 10px;
+    .hero-kicker {
+      display: inline-flex;
+      margin-bottom: var(--space-3);
+      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .positioning {
+      margin: var(--space-3) 0 var(--space-4);
+      max-width: 24ch;
       font-size: 1.02rem;
       font-weight: 700;
-      color: #f8fdff;
+      line-height: 1.5;
+      color: var(--text-strong);
     }
 
     .sidebar p {
       margin: 0;
+      font-size: 0.97rem;
       color: var(--muted);
-      line-height: 1.65;
-      font-size: 0.95rem;
     }
 
     .contact-links,
@@ -116,50 +274,61 @@
     }
 
     .contact-links {
-      margin-top: 24px;
+      margin-top: var(--space-5);
       display: grid;
-      gap: 10px;
+      gap: var(--space-2);
     }
 
     .contact-links li {
-      color: var(--muted);
-      font-size: 0.92rem;
+      font-size: 0.94rem;
+      color: var(--text);
     }
 
     .contact-links a {
-      color: var(--accent);
-      text-decoration: none;
+      color: inherit;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      margin-top: var(--space-5);
+      padding-top: var(--space-5);
+      border-top: 1px solid var(--line);
     }
 
     .sidebar-actions {
       display: flex;
-      justify-content: center;
-      gap: 28px;
-      margin-top: 26px;
+      gap: var(--space-4);
+      flex-wrap: wrap;
     }
 
     .icon-item {
       display: grid;
       justify-items: center;
-      gap: 8px;
+      gap: var(--space-2);
     }
 
     .icon-link {
       display: inline-flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       width: 44px;
       height: 44px;
-      border-radius: 50%;
-      text-decoration: none;
-      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
       border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.03);
-      color: var(--accent);
+      border-radius: 50%;
+      background: var(--bg-elevated);
+      color: var(--accent-strong);
+      text-decoration: none;
+      transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
     }
 
-    .icon-link:hover {
-      transform: translateY(-1px);
+    .icon-link:hover,
+    .icon-link:focus-visible {
+      transform: translateY(-2px);
+      border-color: var(--line-strong);
+      background: color-mix(in srgb, var(--bg-elevated) 78%, var(--accent-soft));
     }
 
     .icon-link svg {
@@ -169,51 +338,90 @@
     }
 
     .icon-label {
-      color: var(--muted);
       font-size: 0.76rem;
       letter-spacing: 0.04em;
       text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: 0.45rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
+      background: var(--bg-elevated);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      transition: background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), color var(--transition-fast);
+    }
+
+    .theme-toggle:hover,
+    .theme-toggle:focus-visible {
+      transform: translateY(-1px);
+      border-color: var(--line-strong);
+      background: color-mix(in srgb, var(--bg-elevated) 80%, var(--accent-soft));
+    }
+
+    .theme-toggle-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.2rem;
+      height: 1.2rem;
+      font-size: 0.92rem;
+      color: var(--accent-strong);
     }
 
     .content-area {
       overflow: hidden;
-      border-radius: 30px;
-      background: linear-gradient(180deg, rgba(8, 24, 39, 0.92), rgba(5, 16, 27, 0.88));
+      border-radius: calc(var(--radius-lg) + 2px);
+      background: linear-gradient(180deg, var(--panel-strong), var(--panel));
     }
 
     .tabs-nav {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.12);
-      border-bottom: 1px solid var(--line);
+      gap: var(--space-2);
+      align-items: center;
+      justify-content: flex-end;
     }
 
     .tab-btn {
-      padding: 11px 16px;
+      padding: 0.55rem 0.9rem;
       border: 1px solid transparent;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.04);
+      border-radius: var(--radius-pill);
+      background: transparent;
       color: var(--muted);
       cursor: pointer;
       font: inherit;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       font-weight: 800;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+      transition: border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .tab-btn:hover,
+    .tab-btn:focus-visible {
+      color: var(--text);
+      background: var(--accent-soft);
+      border-color: var(--line);
     }
 
     .tab-btn.active {
+      color: var(--accent-strong);
       background: var(--accent-soft);
-      color: var(--accent);
-      border-color: rgba(130, 215, 255, 0.26);
+      border-color: var(--line-strong);
     }
 
     .tab-pane {
       display: none;
-      padding: 34px 34px 40px;
+      padding: var(--space-6);
       animation: fadeUp 0.35s ease;
     }
 
@@ -224,7 +432,7 @@
     @keyframes fadeUp {
       from {
         opacity: 0;
-        transform: translateY(14px);
+        transform: translateY(10px);
       }
       to {
         opacity: 1;
@@ -234,153 +442,138 @@
 
     .section-intro {
       max-width: 760px;
-      margin-bottom: 28px;
+      margin-bottom: var(--space-6);
     }
 
     .section-intro h2 {
-      font-size: 2rem;
-      margin-bottom: 10px;
+      margin-bottom: var(--space-3);
+      font-size: clamp(1.8rem, 3vw, 2.35rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
     }
 
     .section-intro p {
       margin: 0;
+      max-width: 66ch;
       color: var(--muted);
-      line-height: 1.7;
     }
 
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
-      margin-bottom: 30px;
+      gap: var(--space-3);
+      margin-bottom: var(--space-6);
     }
 
     .stat-card,
-    .entry {
+    .entry,
+    .publication,
+    .curated-card {
       border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 20px;
+      border-radius: var(--radius-md);
+      background: color-mix(in srgb, var(--panel) 80%, transparent);
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
     }
 
     .stat-card {
-      padding: 18px;
+      padding: var(--space-4);
     }
 
     .stat-card small {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: var(--space-2);
       font-size: 0.73rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent);
       font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-strong);
     }
 
     .stat-card span {
       font-size: 1.15rem;
       font-weight: 800;
-      color: #fbfeff;
+      color: var(--text-strong);
     }
 
     .entry {
-      padding: 24px;
-      margin-bottom: 16px;
+      padding: var(--space-5);
+      margin-bottom: var(--space-4);
     }
 
-    .entry-school {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-
-    .school-link {
-      flex: 0 0 124px;
-      width: 124px;
-      height: 64px;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      padding: 10px;
-    }
-
-    .school-link.dark-surface {
-      background: #0b2236;
-    }
-
-    .school-link.light-surface {
-      background: #ffffff;
-    }
-
-    .school-link img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+    .entry:hover,
+    .entry:focus-within,
+    .publication:hover,
+    .publication:focus-within,
+    .curated-card:hover,
+    .curated-card:focus-within {
+      transform: translateY(-2px);
+      border-color: var(--line-strong);
+      box-shadow: var(--shadow-md);
     }
 
     .entry-body {
-      flex: 1;
       min-width: 0;
     }
 
     .entry-header {
       display: flex;
+      align-items: flex-start;
       justify-content: space-between;
-      gap: 18px;
-      align-items: start;
-      margin-bottom: 10px;
+      gap: var(--space-4);
+      margin-bottom: var(--space-2);
     }
 
     .entry h3 {
       margin: 0;
-      font-size: 1.1rem;
-      color: #fbfeff;
+      font-size: 1.12rem;
+      line-height: 1.35;
+      color: var(--text-strong);
     }
 
     .entry .sub {
       display: block;
-      margin-bottom: 12px;
-      color: var(--accent);
+      margin-bottom: var(--space-3);
       font-size: 0.92rem;
       font-weight: 700;
       line-height: 1.5;
+      color: var(--accent-strong);
     }
 
     .entry .date {
+      padding-top: 0.15rem;
       white-space: nowrap;
-      color: var(--muted);
       font-size: 0.84rem;
       font-weight: 700;
+      color: var(--muted);
     }
 
-    .entry p {
+    .entry p,
+    .entry li {
       margin: 0;
       color: var(--muted);
-      line-height: 1.7;
     }
 
     .entry ul,
     .plain-list {
-      color: var(--muted);
       margin: 0;
-      padding-left: 20px;
-      line-height: 1.7;
+      padding-left: 1.2rem;
+      line-height: 1.75;
+      color: var(--muted);
     }
 
     .tag-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
     }
 
     .tag {
-      padding: 6px 10px;
-      border-radius: 999px;
+      padding: 0.42rem 0.72rem;
+      border-radius: var(--radius-pill);
       background: var(--accent-soft);
-      color: var(--accent);
+      color: var(--accent-strong);
       font-size: 0.74rem;
       font-weight: 800;
       letter-spacing: 0.04em;
@@ -388,29 +581,28 @@
     }
 
     .publication {
-      padding: 20px 22px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.025);
+      padding: var(--space-5);
     }
 
     .publication p {
-      margin: 0;
-      color: var(--muted);
+      margin: 0 0 var(--space-3);
       line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .publication p:last-child {
+      margin-bottom: 0;
     }
 
     .publication a {
-      color: var(--accent);
-      text-decoration: none;
       word-break: break-word;
     }
 
     .subsection-divider {
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin: 28px 0 18px;
+      gap: var(--space-3);
+      margin: var(--space-6) 0 var(--space-4);
     }
 
     .subsection-divider:first-of-type {
@@ -419,84 +611,76 @@
 
     .subsection-divider h3 {
       margin: 0;
-      color: #fbfeff;
-      font-size: 0.94rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
       white-space: nowrap;
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-strong);
     }
 
     .subsection-divider::after {
       content: "";
       width: 100%;
       height: 1px;
-      background: linear-gradient(90deg, rgba(130, 215, 255, 0.28), rgba(130, 215, 255, 0.02));
-    }
-
-    .honors-block {
-      margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1px solid var(--line);
-    }
-
-    .honors-block h4 {
-      margin: 0 0 10px;
-      color: #fbfeff;
-      font-size: 0.98rem;
+      background: linear-gradient(90deg, var(--line-strong), transparent);
     }
 
     .curated-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      gap: var(--space-4);
     }
 
     .curated-card {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 18px 18px 16px;
-      background: rgba(255, 255, 255, 0.02);
-      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-    }
-
-    .curated-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(130, 215, 255, 0.24);
-      background: rgba(255, 255, 255, 0.035);
+      padding: var(--space-5);
     }
 
     .curated-label {
       display: inline-block;
-      margin-bottom: 10px;
-      color: var(--accent);
+      margin-bottom: var(--space-3);
       font-size: 0.72rem;
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      color: var(--accent-strong);
     }
 
     .curated-card h3 {
-      margin: 0 0 8px;
-      font-size: 1rem;
-      color: #fbfeff;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: var(--space-2);
+      margin: 0 0 var(--space-2);
+      font-size: 1rem;
+      color: var(--text-strong);
     }
 
     .curated-arrow {
-      color: rgba(130, 215, 255, 0.72);
       font-size: 0.95rem;
       line-height: 1;
+      color: var(--accent);
     }
 
     .curated-card p {
       margin: 0;
-      color: var(--muted);
-      line-height: 1.65;
       font-size: 0.92rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }
 
     @media (max-width: 1080px) {
@@ -504,8 +688,16 @@
         grid-template-columns: 1fr;
       }
 
-      .sidebar {
-        position: static;
+      .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: center;
+        padding: var(--space-3) 0;
+      }
+
+      .toolbar {
+        align-items: flex-start;
+        flex-direction: column;
       }
 
       .stats-grid {
@@ -518,9 +710,14 @@
     }
 
     @media (max-width: 720px) {
+      .topbar-inner {
+        width: min(100% - 24px, 100%);
+        gap: var(--space-3);
+      }
+
       .main-container {
         width: min(100% - 24px, 100%);
-        margin: 16px auto 28px;
+        margin: var(--space-4) auto var(--space-6);
       }
 
       .sidebar,
@@ -530,11 +727,23 @@
 
       .sidebar,
       .tab-pane {
-        padding: 22px;
+        padding: var(--space-5);
       }
 
       .tabs-nav {
-        padding: 16px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .tabs-nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .portrait {
+        width: 108px;
       }
 
       .stats-grid {
@@ -543,17 +752,7 @@
 
       .entry-header {
         flex-direction: column;
-        gap: 6px;
-      }
-
-      .entry-school {
-        gap: 14px;
-      }
-
-      .school-link {
-        flex-basis: 104px;
-        width: 104px;
-        height: 56px;
+        gap: var(--space-2);
       }
 
       .entry .date {
@@ -563,59 +762,68 @@
   </style>
 </head>
 <body>
-<canvas id="bg-canvas"></canvas>
+<div class="site-shell">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="site-brand">
+        <span class="site-brand-name">Yuning Wang</span>
+      </a>
 
-<div class="main-container">
-  <aside class="sidebar">
-    <img src="images/portrait.jpg" alt="Yuning Wang" class="portrait">
-    <h1>Yuning Wang</h1>
-    <br>
-    <p>I am interested in developing trustworthy and socially grounded AI systems that are technically rigorous, transparent in use, and responsive to real human needs. My current pursuits center on machine learning systems and interpretable data tools for long-term public benefit.</p>
-
-    <ul class="contact-links">
-      <li><a href="tel:+85284902968">+852 8490 2968</a></li>
-      <li><a href="mailto:wyning2004@gmail.com">wyning2004@gmail.com</a></li>
-    </ul>
-
-    <div class="sidebar-actions">
-      <div class="icon-item">
-        <a class="icon-link" href="https://linkedin.com/in/yuning-wang-10888a321/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19ZM8.34 10.55H5.67V18H8.34V10.55ZM7 6.3A1.55 1.55 0 1 0 7 9.4A1.55 1.55 0 1 0 7 6.3ZM18.33 13.46C18.33 11.05 16.81 10.27 15.52 10.27C14.47 10.27 13.81 10.85 13.52 11.26V10.55H10.96V18H13.63V13.97C13.63 12.91 13.83 11.88 15.15 11.88C16.45 11.88 16.47 13.1 16.47 14.03V18H19.14L18.33 13.46Z"/>
-          </svg>
-        </a>
-        <span class="icon-label">Linkedin</span>
-      </div>
-      <div class="icon-item">
-        <a class="icon-link" href="assets/cv_wang_yuning.pdf" target="_blank" rel="noreferrer" aria-label="Curriculum Vitae">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M14 2H7C5.9 2 5 2.9 5 4V20C5 21.1 5.9 22 7 22H17C18.1 22 19 21.1 19 20V7L14 2ZM13 9V3.5L17.5 8H14C13.45 8 13 8.45 13 9ZM9 13H15V15H9V13ZM9 17H15V19H9V17ZM9 9H11V11H9V9Z"/>
-          </svg>
-        </a>
-        <span class="icon-label">CV</span>
-      </div>
+      <nav class="tabs-nav" role="tablist" aria-label="Profile sections">
+        <button class="tab-btn active" type="button" role="tab" id="tab-education" aria-selected="true" aria-controls="education" onclick="showTab('education', this)">Education</button>
+        <button class="tab-btn" type="button" role="tab" id="tab-experience" aria-selected="false" aria-controls="experience" onclick="showTab('experience', this)">Experience</button>
+        <button class="tab-btn" type="button" role="tab" id="tab-projects" aria-selected="false" aria-controls="projects" onclick="showTab('projects', this)">Projects</button>
+        <button class="tab-btn" type="button" role="tab" id="tab-research" aria-selected="false" aria-controls="research" onclick="showTab('research', this)">Research</button>
+        <button class="tab-btn" type="button" role="tab" id="tab-elsewhere" aria-selected="false" aria-controls="elsewhere" onclick="showTab('elsewhere', this)">Beyond Work</button>
+      </nav>
     </div>
-  </aside>
+  </header>
 
-  <main class="content-area">
-    <nav class="tabs-nav">
-      <button class="tab-btn active" onclick="showTab('education', this)">Education</button>
-      <button class="tab-btn" onclick="showTab('experience', this)">Experience</button>
-      <button class="tab-btn" onclick="showTab('research', this)">Research</button>
-      <button class="tab-btn" onclick="showTab('projects', this)">Projects</button>
-      <button class="tab-btn" onclick="showTab('elsewhere', this)">Elsewhere</button>
-    </nav>
+  <div class="main-container">
+    <aside class="sidebar">
+      <img src="images/portrait.jpg" alt="Yuning Wang" class="portrait">
+      <h1>Yuning Wang</h1>
+      <br>
+      <p>I am interested in developing trustworthy and socially grounded AI systems that are technically rigorous, transparent in use, and responsive to long-term public benefit.</p>
 
-    <section id="education" class="tab-pane active">
-      <div class="section-intro">
-        <h2>Education</h2>
+      <ul class="contact-links">
+        <li><a href="tel:+85284902968">+852 8490 2968</a></li>
+        <li><a href="mailto:wyning2004@gmail.com">wyning2004@gmail.com</a></li>
+      </ul>
+
+      <div class="toolbar">
+        <div class="sidebar-actions">
+          <div class="icon-item">
+            <a class="icon-link" href="https://linkedin.com/in/yuning-wang-10888a321/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19ZM8.34 10.55H5.67V18H8.34V10.55ZM7 6.3A1.55 1.55 0 1 0 7 9.4A1.55 1.55 0 1 0 7 6.3ZM18.33 13.46C18.33 11.05 16.81 10.27 15.52 10.27C14.47 10.27 13.81 10.85 13.52 11.26V10.55H10.96V18H13.63V13.97C13.63 12.91 13.83 11.88 15.15 11.88C16.45 11.88 16.47 13.1 16.47 14.03V18H19.14L18.33 13.46Z"/>
+              </svg>
+            </a>
+            <span class="icon-label">LinkedIn</span>
+          </div>
+          <div class="icon-item">
+            <a class="icon-link" href="assets/cv_wang_yuning.pdf" target="_blank" rel="noreferrer" aria-label="Curriculum Vitae">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M14 2H7C5.9 2 5 2.9 5 4V20C5 21.1 5.9 22 7 22H17C18.1 22 19 21.1 19 20V7L14 2ZM13 9V3.5L17.5 8H14C13.45 8 13 8.45 13 9ZM9 13H15V15H9V13ZM9 17H15V19H9V17ZM9 9H11V11H9V9Z"/>
+              </svg>
+            </a>
+            <span class="icon-label">CV</span>
+          </div>
+        </div>
+        <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Toggle color theme" aria-pressed="false">
+          <span class="theme-toggle-icon" aria-hidden="true">◐</span>
+          <span id="theme-toggle-label">Dark mode</span>
+        </button>
       </div>
+    </aside>
 
-      <div class="entry">
-        <div class="entry-school">
-          <a class="school-link dark-surface" href="https://hkust.edu.hk/" target="_blank" rel="noreferrer" aria-label="HKUST official website">
-            <img src="images/universities/hkust-logo.svg" alt="HKUST official logo">
-          </a>
+    <main class="content-area">
+      <section id="education" class="tab-pane active" role="tabpanel" aria-labelledby="tab-education">
+        <div class="section-intro">
+          <h2>Education</h2>
+        </div>
+
+        <div class="entry">
           <div class="entry-body">
             <div class="entry-header">
               <h3><a href="https://hkust.edu.hk/" target="_blank" rel="noreferrer">The Hong Kong University of Science and Technology</a></h3>
@@ -626,17 +834,12 @@
               <li>CGA 4.064/4.3, ranked 3rd out of 145.</li>
               <li>GRE: Verbal 152, Quantitative 170, Analytical Writing 4.0.</li>
               <li>Courses with distinction include Programming (Python, Java, C++), Design and Analysis of Algorithms, Artificial Intelligence, Data Visualization, Operating Systems, Probability and Statistics, Linear Algebra, and Economics.</li>
-              <li>Honors and awards: University Admission Scholarship, Mr. Andrew Shiu-Keung Fung Scholarship, Lee Hysan Foundation Exchange Scholarship, SENG Dean's List</li>
+              <li>Honors and awards: University Admission Scholarship, Mr. Andrew Shiu-Keung Fung Scholarship, Lee Hysan Foundation Exchange Scholarship, SENG Dean's List.</li>
             </ul>
           </div>
         </div>
-      </div>
 
-      <div class="entry">
-        <div class="entry-school">
-          <a class="school-link dark-surface" href="https://www.kth.se/en" target="_blank" rel="noreferrer" aria-label="KTH official website">
-            <img src="images/universities/kth-logo.svg" alt="KTH official logo">
-          </a>
+        <div class="entry">
           <div class="entry-body">
             <div class="entry-header">
               <h3><a href="https://www.kth.se/en" target="_blank" rel="noreferrer">Royal Institute of Technology (KTH)</a></h3>
@@ -649,13 +852,8 @@
             </ul>
           </div>
         </div>
-      </div>
 
-      <div class="entry">
-        <div class="entry-school">
-          <a class="school-link light-surface" href="https://www.usfq.edu.ec/en" target="_blank" rel="noreferrer" aria-label="USFQ official website">
-            <img src="images/universities/usfq-logo.svg" alt="USFQ official logo">
-          </a>
+        <div class="entry">
           <div class="entry-body">
             <div class="entry-header">
               <h3><a href="https://www.usfq.edu.ec/en" target="_blank" rel="noreferrer">Universidad San Francisco de Quito</a></h3>
@@ -667,216 +865,252 @@
             </ul>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="experience" class="tab-pane">
-      <div class="section-intro">
-        <h2>Professional experience</h2>
-      </div>
-
-      <div class="subsection-divider">
-        <h3>Industry &amp; Technical Experience</h3>
-      </div>
-
-      <div class="entry">
-        <div class="entry-header">
-          <h3>Hong Kong Observatory (HKO)</h3>
-          <span class="date">Jun 2025 - Aug 2025</span>
+      <section id="experience" class="tab-pane" role="tabpanel" aria-labelledby="tab-experience">
+        <div class="section-intro">
+          <h2>Experience</h2>
         </div>
-        <span class="sub">Summer Placement, Information Technology Management | Hong Kong</span>
-        <ul>
-          <li>Spearheaded an 8-week solo project to deploy a distilled LLM for automated weather TV transcription, handling the full pipeline from data curation to FastAPI and React implementation.</li>
-          <li>Achieved more than 90% model size reduction via knowledge distillation and 4-bit quantization while preserving bilingual Cantonese and English quality.</li>
-          <li>Delivered a production-ready tool in a secure environment and received positive feedback for customized UI and UX.</li>
-        </ul>
-      </div>
 
-      <div class="entry" id="hkust-library-project">
-        <div class="entry-header">
-          <h3>HKUST Library</h3>
-          <span class="date">Sep 2024 - Dec 2024</span>
+        <div class="subsection-divider">
+          <h3>Industry &amp; Technical Experience</h3>
         </div>
-        <span class="sub">Developer, DS Colab Project | Hong Kong</span>
-        <ul>
-          <li>Engineered a bilingual topic modeling application using Streamlit and BERTopic for no-code semantic analysis in digital humanities research.</li>
-          <li>Implemented custom Chinese text segmentation to resolve tokenization issues for non-English datasets.</li>
-          <li>Developed interactive visualizations that made complex model outputs interpretable for researchers.</li>
-        </ul>
-      </div>
 
-      <div class="subsection-divider">
-        <h3>Teaching &amp; Leadership</h3>
-      </div>
-
-      <div class="entry">
-        <div class="entry-header">
-          <h3>Department of Computer Science and Engineering (CSE), HKUST</h3>
-          <span class="date">Dec 2025 - Jan 2026</span>
+        <div class="entry">
+          <div class="entry-header">
+            <h3>Hong Kong Observatory (HKO)</h3>
+            <span class="date">Jun 2025 - Aug 2025</span>
+          </div>
+          <span class="sub">Summer Placement, Information Technology Management | Hong Kong</span>
+          <ul>
+            <li>Spearheaded an 8-week solo project to deploy a distilled LLM for automated weather TV transcription, handling the full pipeline from data curation to FastAPI and React implementation.</li>
+            <li>Achieved more than 90% model size reduction via knowledge distillation and 4-bit quantization while preserving bilingual Cantonese and English quality.</li>
+            <li>Delivered a production-ready tool in a secure environment and received positive feedback for customized UI and UX.</li>
+          </ul>
         </div>
-        <span class="sub">Teaching Assistant of COMP 1023: Introduction to Python Programming</span>
-        <ul>
-          <li>Designed beginner-friendly assignments with interactive UIs and autograders.</li>
-          <li>Reviewed course materials and gave feedbacks.</li>
-        </ul>
-      </div>
 
-      <div class="entry">
-        <div class="entry-header">
-          <h3>Undergraduate Recruitment and Admissions Office (URAO), HKUST</h3>
-          <span class="date">2023 - 2026</span>
+        <div class="entry" id="hkust-library-project">
+          <div class="entry-header">
+            <h3>HKUST Library</h3>
+            <span class="date">Sep 2024 - Dec 2024</span>
+          </div>
+          <span class="sub">Developer, DS Colab Project | Hong Kong</span>
+          <ul>
+            <li>Engineered a bilingual topic modeling application using Streamlit and BERTopic for no-code semantic analysis in digital humanities research.</li>
+            <li>Implemented custom Chinese text segmentation to resolve tokenization issues for non-English datasets.</li>
+            <li>Developed interactive visualizations that made complex model outputs interpretable for researchers.</li>
+          </ul>
         </div>
-        <span class="sub">Deputy Head Student Ambassador</span>
-        <ul>
-          <li>Led the Greater China recruitment team to conduct info sessions and interviews.</li>
-          <li>Managed official social media channels (WeChat, Rednote), directing content creation and engagement strategies.</li>
-        </ul>
-      </div>
-    </section>
 
-    <section id="research" class="tab-pane">
-      <div class="section-intro">
-        <h2>Research and publications</h2>
-      </div>
-
-      <div class="subsection-divider">
-        <h3>Research Experience</h3>
-      </div>
-
-      <div class="entry">
-        <div class="entry-header">
-          <h3>Undergraduate Research Opportunities Program (UROP)</h3>
-          <span class="date">Jun 2024 - Apr 2025</span>
+        <div class="subsection-divider">
+          <h3>Teaching &amp; Leadership</h3>
         </div>
-        <span class="sub">Speech-to-OverpassQL Model, supervised by Prof. Raymond Chi-Wing Wong | HKUST</span>
-        <ul>
-          <li>Conducted literature review on NLP and speech recognition.</li>
-          <li>Investigated the feasibility of direct Speech-to-OverpassQL translation for OpenStreetMap queries.</li>
-        </ul>
-      </div>
 
-      <div class="subsection-divider">
-        <h3>Publications &amp; Presentations</h3>
-      </div>
-
-      <div class="publication">
-        <p>Yip, S. L. and Wang, Y. (2025). <em>From Challenges to Solutions: Insights from Our Journey of Developing a Topic Modeling Tool for English and Chinese.</em> Presented at the Global Digital Humanities Symposium (GDHS), Michigan State University. <a href="https://doi.org/10.17613/sb0t9-qp319" target="_blank" rel="noreferrer">doi.org/10.17613/sb0t9-qp319</a></p>
-        <p>This presentation grew out of the <a href="#hkust-library-project" onclick="openExperienceProject(event, 'hkust-library-project')">HKUST Library topic modeling project</a>.</p>
-      </div>
-    </section>
-
-    <section id="projects" class="tab-pane">
-      <div class="section-intro">
-        <h2>Selected projects</h2>
-      </div>
-
-      <div class="entry">
-        <div class="entry-header">
-          <h3>RoboAnalyzer: Automatic Emergent Stock Analysis System</h3>
-          <span class="date">Jun 2025 - Present</span>
+        <div class="entry">
+          <div class="entry-header">
+            <h3>Department of Computer Science and Engineering (CSE), HKUST</h3>
+            <span class="date">Dec 2025 - Jan 2026</span>
+          </div>
+          <span class="sub">Teaching Assistant of COMP 1023: Introduction to Python Programming</span>
+          <ul>
+            <li>Designed beginner-friendly assignments with interactive UIs and autograders.</li>
+            <li>Reviewed course materials and gave feedback.</li>
+          </ul>
         </div>
-        <span class="sub">Final Year Project, supervised by Prof. Yangqiu Song | HKUST</span>
-        <ul>
-          <li>Architected an automated pipeline identifying emergent stocks integrating LLM agents for analysis.</li>
-          <li>Built a Streamlit dashboard for real-time engagement.</li>
-          <li>Developed a Backtrader engine to simulate momentum strategies.</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tag">LLM Agents</span>
-          <span class="tag">Backtrader</span>
-          <span class="tag">Streamlit</span>
+
+        <div class="entry">
+          <div class="entry-header">
+            <h3>Undergraduate Recruitment and Admissions Office (URAO), HKUST</h3>
+            <span class="date">2023 - 2026</span>
+          </div>
+          <span class="sub">Deputy Head Student Ambassador</span>
+          <ul>
+            <li>Led the Greater China recruitment team to conduct info sessions and interviews.</li>
+            <li>Managed official social media channels (WeChat, Rednote), directing content creation and engagement strategies.</li>
+          </ul>
         </div>
-      </div>
+      </section>
 
-      <div class="entry">
-        <div class="entry-header">
-          <h3>Advanced Fine-tuning &amp; Semi-supervised Methods in Vision</h3>
-          <span class="date">Apr 2025 - May 2025</span>
+      <section id="projects" class="tab-pane" role="tabpanel" aria-labelledby="tab-projects">
+        <div class="section-intro">
+          <h2>Projects</h2>
         </div>
-        <span class="sub">Course Project: Deep Learning in Data Science, instructed by Prof. Josephine Sullivan | KTH</span>
-        <ul>
-          <li>Conducted a comparative study of ResNet152 vs. ViT on the Oxford-IIIT Pet dataset using LoRA.</li>
-          <li>Implemented LoRA to reduce parameters by more than 99% and pseudo-labeling to boost accuracy from 50.7% to 74.9% in limited-label scenarios.</li>
-          <li>Awarded best report of the batch during the poster session for experimental depth.</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tag">PyTorch</span>
-          <span class="tag">LoRA</span>
-          <span class="tag">Pseudo-labeling</span>
-          <span class="tag">Vision Transformers</span>
+
+        <div class="entry">
+          <div class="entry-header">
+            <h3>RoboAnalyzer: Automatic Emergent Stock Analysis System</h3>
+            <span class="date">Jun 2025 - Present</span>
+          </div>
+          <span class="sub">Final Year Project, supervised by Prof. Yangqiu Song | HKUST</span>
+          <ul>
+            <li>Architected an automated pipeline identifying emergent stocks integrating LLM agents for analysis.</li>
+            <li>Built a Streamlit dashboard for real-time engagement.</li>
+            <li>Developed a Backtrader engine to simulate momentum strategies.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag">LLM Agents</span>
+            <span class="tag">Backtrader</span>
+            <span class="tag">Streamlit</span>
+          </div>
         </div>
-      </div>
 
-      <div class="entry">
-        <div class="entry-header">
-          <h3>Income vs. Expense Atlas</h3>
-          <span class="date">Jan 2025 - Mar 2025</span>
+        <div class="entry">
+          <div class="entry-header">
+            <h3>Advanced Fine-tuning &amp; Semi-supervised Methods in Vision</h3>
+            <span class="date">Apr 2025 - May 2025</span>
+          </div>
+          <span class="sub">Course Project: Deep Learning in Data Science, instructed by Prof. Josephine Sullivan | KTH</span>
+          <ul>
+            <li>Conducted a comparative study of ResNet152 vs. ViT on the Oxford-IIIT Pet dataset using LoRA.</li>
+            <li>Implemented LoRA to reduce parameters by more than 99% and pseudo-labeling to boost accuracy from 50.7% to 74.9% in limited-label scenarios.</li>
+            <li>Awarded best report of the batch during the poster session for experimental depth.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag">PyTorch</span>
+            <span class="tag">LoRA</span>
+            <span class="tag">Pseudo-labeling</span>
+            <span class="tag">Vision Transformers</span>
+          </div>
         </div>
-        <span class="sub">Course Project: Information Visualization, instructed by Prof. Tino Weinkauf | KTH</span>
-        <ul>
-          <li>Developed a responsive visualization tool mapping purchasing power across 680+ cities.</li>
-          <li>Used dynamic choropleth maps and scatter plots to support city-level comparison.</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tag">Information Visualization</span>
-          <span class="tag">Choropleth Maps</span>
-          <span class="tag">Scatter Plots</span>
+
+        <div class="entry">
+          <div class="entry-header">
+            <h3>Income vs. Expense Atlas</h3>
+            <span class="date">Jan 2025 - Mar 2025</span>
+          </div>
+          <span class="sub">Course Project: Information Visualization, instructed by Prof. Tino Weinkauf | KTH</span>
+          <ul>
+            <li>Developed a responsive visualization tool mapping purchasing power across 680+ cities.</li>
+            <li>Used dynamic choropleth maps and scatter plots to support city-level comparison.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag">Information Visualization</span>
+            <span class="tag">Choropleth Maps</span>
+            <span class="tag">Scatter Plots</span>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="elsewhere" class="tab-pane">
-      <div class="section-intro">
-        <h2>Elsewhere</h2>
-        <p>A small curated space for the references, places, images, and fragments that sit adjacent to work and quietly shape perspective.</p>
-      </div>
+      <section id="research" class="tab-pane" role="tabpanel" aria-labelledby="tab-research">
+        <div class="section-intro">
+          <h2>Research</h2>
+        </div>
 
-      <div class="curated-grid">
-        <article class="curated-card">
-          <span class="curated-label">Music</span>
-          <h3>Listening Notes <span class="curated-arrow">↗</span></h3>
-          <p>Placeholder for albums, composers, or songs that stay in rotation and return as a way of thinking through mood, pacing, and attention.</p>
-        </article>
+        <div class="subsection-divider">
+          <h3>Research Experience</h3>
+        </div>
 
-        <article class="curated-card">
-          <span class="curated-label">Places</span>
-          <h3>Travel Memory <span class="curated-arrow">↗</span></h3>
-          <p>Placeholder for a place remembered less as an itinerary and more as a texture: light, weather, architecture, or a passing conversation.</p>
-        </article>
+        <div class="entry">
+          <div class="entry-header">
+            <h3>Undergraduate Research Opportunities Program (UROP)</h3>
+            <span class="date">Jun 2024 - Apr 2025</span>
+          </div>
+          <span class="sub">Speech-to-OverpassQL Model, supervised by Prof. Raymond Chi-Wing Wong | HKUST</span>
+          <ul>
+            <li>Conducted literature review on NLP and speech recognition.</li>
+            <li>Investigated the feasibility of direct Speech-to-OverpassQL translation for OpenStreetMap queries.</li>
+          </ul>
+        </div>
 
-        <article class="curated-card">
-          <span class="curated-label">Visual Notes</span>
-          <h3>Selected Images <span class="curated-arrow">↗</span></h3>
-          <p>Placeholder for a restrained selection of photographs or visual fragments kept for composition, atmosphere, and ways of noticing.</p>
-        </article>
+        <div class="subsection-divider">
+          <h3>Publications &amp; Presentations</h3>
+        </div>
 
-        <article class="curated-card">
-          <span class="curated-label">Fragments</span>
-          <h3>Short Reflections <span class="curated-arrow">↗</span></h3>
-          <p>Placeholder for compact observations, passing ideas, or lines worth keeping without expanding them into full essays.</p>
-        </article>
+        <div class="publication">
+          <p>Yip, S. L. and Wang, Y. (2025). <em>From Challenges to Solutions: Insights from Our Journey of Developing a Topic Modeling Tool for English and Chinese.</em> Presented at the Global Digital Humanities Symposium (GDHS), Michigan State University. <a href="https://doi.org/10.17613/sb0t9-qp319" target="_blank" rel="noreferrer">doi.org/10.17613/sb0t9-qp319</a></p>
+          <p>This presentation grew out of the <a href="#hkust-library-project" onclick="openExperienceProject(event, 'hkust-library-project')">HKUST Library topic modeling project</a>.</p>
+        </div>
+      </section>
 
-        <article class="curated-card">
-          <span class="curated-label">Observations</span>
-          <h3>What Shapes Thinking <span class="curated-arrow">↗</span></h3>
-          <p>Placeholder for books, encounters, habits, or small recurring details that influence how questions are framed and pursued.</p>
-        </article>
-      </div>
-    </section>
-  </main>
+      <section id="elsewhere" class="tab-pane" role="tabpanel" aria-labelledby="tab-elsewhere">
+        <div class="section-intro">
+          <h2>Beyond Work</h2>
+          <p>A restrained space for references, places, images, and fragments that quietly shape attention, judgment, and perspective outside formal projects.</p>
+        </div>
+
+        <div class="curated-grid">
+          <article class="curated-card">
+            <span class="curated-label">Music</span>
+            <h3>Listening Notes <span class="curated-arrow" aria-hidden="true">↗</span></h3>
+            <p>Albums, composers, or songs that remain in rotation and return as a way of thinking through mood, pacing, and attention.</p>
+          </article>
+
+          <article class="curated-card">
+            <span class="curated-label">Places</span>
+            <h3>Travel Memory <span class="curated-arrow" aria-hidden="true">↗</span></h3>
+            <p>Places remembered less as itineraries and more as textures: light, weather, architecture, or a passing conversation.</p>
+          </article>
+
+          <article class="curated-card">
+            <span class="curated-label">Visual Notes</span>
+            <h3>Selected Images <span class="curated-arrow" aria-hidden="true">↗</span></h3>
+            <p>A restrained selection of photographs or visual fragments kept for composition, atmosphere, and ways of noticing.</p>
+          </article>
+
+          <article class="curated-card">
+            <span class="curated-label">Fragments</span>
+            <h3>Short Reflections <span class="curated-arrow" aria-hidden="true">↗</span></h3>
+            <p>Compact observations, passing ideas, or lines worth keeping without expanding them into full essays.</p>
+          </article>
+
+          <article class="curated-card">
+            <span class="curated-label">Observations</span>
+            <h3>What Shapes Thinking <span class="curated-arrow" aria-hidden="true">↗</span></h3>
+            <p>Books, encounters, habits, or recurring details that influence how questions are framed and pursued.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
 </div>
 
 <script>
+  const themeStorageKey = 'preferred-theme';
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeToggleLabel = document.getElementById('theme-toggle-label');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function getPreferredTheme() {
+    const storedTheme = localStorage.getItem(themeStorageKey);
+    if (storedTheme === 'light' || storedTheme === 'dark') {
+      return storedTheme;
+    }
+    return prefersDark.matches ? 'dark' : 'light';
+  }
+
+  function updateThemeToggle(theme) {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
+    themeToggleLabel.textContent = nextTheme === 'dark' ? 'Dark mode' : 'Light mode';
+  }
+
+  function applyTheme(theme, persist) {
+    root.setAttribute('data-theme', theme);
+    updateThemeToggle(theme);
+    if (persist) {
+      localStorage.setItem(themeStorageKey, theme);
+    }
+  }
+
   function showTab(tabId, button) {
-    document.querySelectorAll('.tab-pane').forEach((pane) => pane.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach((tab) => tab.classList.remove('active'));
-    document.getElementById(tabId).classList.add('active');
-    button.classList.add('active');
+    document.querySelectorAll('.tab-pane').forEach((pane) => {
+      const isActive = pane.id === tabId;
+      pane.classList.toggle('active', isActive);
+      pane.hidden = !isActive;
+    });
+
+    document.querySelectorAll('.tab-btn').forEach((tab) => {
+      const isActive = tab === button;
+      tab.classList.toggle('active', isActive);
+      tab.setAttribute('aria-selected', String(isActive));
+      tab.tabIndex = isActive ? 0 : -1;
+    });
   }
 
   function openExperienceProject(event, projectId) {
     event.preventDefault();
-    const experienceButton = Array.from(document.querySelectorAll('.tab-btn')).find((button) => button.textContent === 'Experience');
+    const experienceButton = document.getElementById('tab-experience');
     showTab('experience', experienceButton);
     requestAnimationFrame(() => {
       const target = document.getElementById(projectId);
@@ -886,47 +1120,57 @@
     });
   }
 
-  const canvas = document.getElementById('bg-canvas');
-  const ctx = canvas.getContext('2d');
-  let particles = [];
+  applyTheme(getPreferredTheme(), false);
 
-  function init() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    particles = [];
+  themeToggle.addEventListener('click', () => {
+    const nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(nextTheme, true);
+  });
 
-    for (let i = 0; i < 80; i += 1) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 2.2 + 0.8,
-        velocity: Math.random() * 0.45 + 0.15
-      });
+  prefersDark.addEventListener('change', (event) => {
+    if (!localStorage.getItem(themeStorageKey)) {
+      applyTheme(event.matches ? 'dark' : 'light', false);
     }
-  }
+  });
 
-  function animate() {
-    ctx.fillStyle = '#04111d';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'rgba(130, 215, 255, 0.32)';
+  document.querySelectorAll('.tab-pane').forEach((pane) => {
+    pane.hidden = !pane.classList.contains('active');
+  });
 
-    particles.forEach((particle) => {
-      particle.y -= particle.velocity;
-      if (particle.y < -8) {
-        particle.y = canvas.height + 8;
+  const tabButtons = Array.from(document.querySelectorAll('.tab-btn'));
+  tabButtons.forEach((button) => {
+    button.tabIndex = button.classList.contains('active') ? 0 : -1;
+    button.addEventListener('keydown', (event) => {
+      const currentIndex = tabButtons.indexOf(event.currentTarget);
+
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        const nextButton = tabButtons[(currentIndex + 1) % tabButtons.length];
+        nextButton.focus();
+        showTab(nextButton.getAttribute('aria-controls'), nextButton);
       }
 
-      ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-      ctx.fill();
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        const prevButton = tabButtons[(currentIndex - 1 + tabButtons.length) % tabButtons.length];
+        prevButton.focus();
+        showTab(prevButton.getAttribute('aria-controls'), prevButton);
+      }
+
+      if (event.key === 'Home') {
+        event.preventDefault();
+        tabButtons[0].focus();
+        showTab(tabButtons[0].getAttribute('aria-controls'), tabButtons[0]);
+      }
+
+      if (event.key === 'End') {
+        event.preventDefault();
+        const lastButton = tabButtons[tabButtons.length - 1];
+        lastButton.focus();
+        showTab(lastButton.getAttribute('aria-controls'), lastButton);
+      }
     });
-
-    requestAnimationFrame(animate);
-  }
-
-  init();
-  animate();
-  window.addEventListener('resize', init);
+  });
 </script>
 </body>
 </html>
