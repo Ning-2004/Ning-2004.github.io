@@ -3,257 +3,889 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yuning Wang | CS & AI Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Yuning Wang | Computer Science and AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #00d2ff;
-      --accent: #3a7bd5;
-      --glass: rgba(15, 15, 20, 0.9);
-      --text: #f5f5f7;
-      --card-bg: rgba(255, 255, 255, 0.05);
+      --bg: #07131f;
+      --bg-soft: rgba(7, 19, 31, 0.74);
+      --panel: rgba(9, 26, 43, 0.78);
+      --panel-strong: rgba(8, 22, 36, 0.92);
+      --line: rgba(153, 221, 255, 0.16);
+      --text: #eef7fb;
+      --muted: #9ab5c7;
+      --accent: #82d7ff;
+      --accent-strong: #1fb6ff;
+      --accent-soft: rgba(130, 215, 255, 0.14);
+      --shadow: 0 28px 70px rgba(0, 0, 0, 0.32);
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: #0a0a0c;
+      font-family: 'Manrope', sans-serif;
       color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(31, 182, 255, 0.22), transparent 28%),
+        radial-gradient(circle at right 20%, rgba(130, 215, 255, 0.16), transparent 24%),
+        linear-gradient(135deg, #04111d 0%, #081a2b 52%, #031019 100%);
+      min-height: 100vh;
       overflow-x: hidden;
     }
 
-    #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; }
-
-    .main-container {
-      max-width: 1300px;
-      margin: 60px auto;
-      display: grid;
-      grid-template-columns: 350px 1fr;
-      gap: 30px;
-      padding: 0 20px;
+    a {
+      color: inherit;
     }
 
-    /* Sidebar Profile */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+    }
+
+    .main-container {
+      width: min(1240px, calc(100% - 32px));
+      margin: 36px auto;
+      display: grid;
+      grid-template-columns: 330px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .sidebar,
+    .content-area {
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
     .sidebar {
-      background: var(--glass);
-      backdrop-filter: blur(20px);
-      border-radius: 24px;
-      padding: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      height: fit-content;
       position: sticky;
-      top: 60px;
+      top: 28px;
+      background: linear-gradient(180deg, rgba(9, 27, 42, 0.94), rgba(7, 19, 31, 0.88));
+      border-radius: 28px;
+      padding: 28px;
     }
 
     .portrait {
       width: 100%;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      margin-bottom: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: block;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.34);
+      margin-bottom: 24px;
     }
 
-    .sidebar h1 { font-size: 1.8rem; margin: 10px 0; color: #fff; }
-    .sidebar p { font-size: 0.9rem; color: #86868b; line-height: 1.4; }
-    .contact-links { margin-top: 20px; list-style: none; padding: 0; }
-    .contact-links li { margin: 10px 0; font-size: 0.85rem; }
-    .contact-links a { color: var(--primary); text-decoration: none; }
+    .sidebar h1,
+    .tab-pane h2 {
+      font-family: 'Source Serif 4', serif;
+      margin: 0;
+    }
 
-    /* Main Content Area */
+    .sidebar h1 {
+      font-size: 2.4rem;
+      line-height: 0.95;
+      margin-top: 18px;
+    }
+
+    .headline {
+      margin: 16px 0 10px;
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #f8fdff;
+    }
+
+    .sidebar p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 0.95rem;
+    }
+
+    .contact-links,
+    .plain-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .contact-links {
+      margin-top: 24px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .contact-links li {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .contact-links a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .sidebar-actions {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-top: 26px;
+    }
+
+    .icon-item {
+      display: grid;
+      justify-items: center;
+      gap: 8px;
+    }
+
+    .icon-link {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      text-decoration: none;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--accent);
+    }
+
+    .icon-link:hover {
+      transform: translateY(-1px);
+    }
+
+    .icon-link svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .icon-label {
+      color: var(--muted);
+      font-size: 0.76rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
     .content-area {
-      background: var(--glass);
-      backdrop-filter: blur(20px);
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
       overflow: hidden;
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(8, 24, 39, 0.92), rgba(5, 16, 27, 0.88));
     }
 
     .tabs-nav {
       display: flex;
-      background: rgba(0,0,0,0.2);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.12);
+      border-bottom: 1px solid var(--line);
     }
 
     .tab-btn {
-      flex: 1;
-      padding: 20px;
-      border: none;
-      background: none;
-      color: var(--text);
+      padding: 11px 16px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
       cursor: pointer;
-      font-weight: 600;
-      opacity: 0.5;
-      transition: 0.3s;
-      font-size: 0.85rem;
+      font: inherit;
+      font-size: 0.83rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
     }
 
-    .tab-btn.active { opacity: 1; color: var(--primary); border-bottom: 2px solid var(--primary); }
+    .tab-btn.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: rgba(130, 215, 255, 0.26);
+    }
 
-    .tab-pane { padding: 40px; display: none; animation: slideUp 0.4s ease-out; }
-    .tab-pane.active { display: block; }
+    .tab-pane {
+      display: none;
+      padding: 34px 34px 40px;
+      animation: fadeUp 0.35s ease;
+    }
 
-    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .tab-pane.active {
+      display: block;
+    }
 
-    /* Content Styling */
-    .entry { margin-bottom: 30px; position: relative; }
-    .entry-header { display: flex; justify-content: space-between; align-items: baseline; }
-    .entry h3 { margin: 0; color: #fff; font-size: 1.2rem; }
-    .entry .sub { color: var(--primary); font-weight: 600; font-size: 0.95rem; display: block; margin-top: 4px; }
-    .entry .date { color: #86868b; font-size: 0.85rem; }
-    .entry ul { padding-left: 18px; color: #a1a1a6; font-size: 0.9rem; }
-    .tag { background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; margin-right: 5px; }
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
-    .stat-card { background: var(--card-bg); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
-    .stat-card small { color: var(--primary); display: block; font-size: 0.7rem; text-transform: uppercase; }
-    .stat-card span { font-size: 1.1rem; font-weight: 600; }
+    .section-intro {
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
+
+    .section-intro h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .section-intro p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card,
+    .entry {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+    }
+
+    .stat-card {
+      padding: 18px;
+    }
+
+    .stat-card small {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .stat-card span {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fbfeff;
+    }
+
+    .entry {
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .entry-school {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .school-link {
+      flex: 0 0 124px;
+      width: 124px;
+      height: 64px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    .school-link.dark-surface {
+      background: #0b2236;
+    }
+
+    .school-link.light-surface {
+      background: #ffffff;
+    }
+
+    .school-link img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .entry-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 10px;
+    }
+
+    .entry h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #fbfeff;
+    }
+
+    .entry .sub {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--accent);
+      font-size: 0.92rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .entry .date {
+      white-space: nowrap;
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .entry p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .entry ul,
+    .plain-list {
+      color: var(--muted);
+      margin: 0;
+      padding-left: 20px;
+      line-height: 1.7;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .publication {
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .publication p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .publication a {
+      color: var(--accent);
+      text-decoration: none;
+      word-break: break-word;
+    }
+
+    .subsection-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 28px 0 18px;
+    }
+
+    .subsection-divider:first-of-type {
+      margin-top: 0;
+    }
+
+    .subsection-divider h3 {
+      margin: 0;
+      color: #fbfeff;
+      font-size: 0.94rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .subsection-divider::after {
+      content: "";
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(130, 215, 255, 0.28), rgba(130, 215, 255, 0.02));
+    }
+
+    .honors-block {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .honors-block h4 {
+      margin: 0 0 10px;
+      color: #fbfeff;
+      font-size: 0.98rem;
+    }
+
+    .curated-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .curated-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      background: rgba(255, 255, 255, 0.02);
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .curated-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(130, 215, 255, 0.24);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .curated-label {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .curated-card h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: #fbfeff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .curated-arrow {
+      color: rgba(130, 215, 255, 0.72);
+      font-size: 0.95rem;
+      line-height: 1;
+    }
+
+    .curated-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 1080px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .curated-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .main-container {
+        width: min(100% - 24px, 100%);
+        margin: 16px auto 28px;
+      }
+
+      .sidebar,
+      .content-area {
+        border-radius: 24px;
+      }
+
+      .sidebar,
+      .tab-pane {
+        padding: 22px;
+      }
+
+      .tabs-nav {
+        padding: 16px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .entry-header {
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .entry-school {
+        gap: 14px;
+      }
+
+      .school-link {
+        flex-basis: 104px;
+        width: 104px;
+        height: 56px;
+      }
+
+      .entry .date {
+        white-space: normal;
+      }
+    }
   </style>
 </head>
 <body>
-
 <canvas id="bg-canvas"></canvas>
 
 <div class="main-container">
   <aside class="sidebar">
     <img src="images/portrait.jpg" alt="Yuning Wang" class="portrait">
-    <h1>Yuning WANG</h1>
-    <p>BEng in Computer Science<br>Minor in Mathematics<br>HKUST '26</p>
+    <h1>Yuning Wang</h1>
+    <br>
+    <p>I am interested in developing trustworthy and socially grounded AI systems that are technically rigorous, transparent in use, and responsive to real human needs. My current pursuits center on machine learning systems and interpretable data tools for long-term public benefit.</p>
 
     <ul class="contact-links">
-      <li>📍 Hong Kong</li>
-      <li>📧 <a href="mailto:wyning2004@gmail.com">wyning2004@gmail.com</a></li>
-      <li>🔗 <a href="https://linkedin.com/in/yuning-wang-10888a321/">LinkedIn</a></li>
+      <li><a href="tel:+85284902968">+852 8490 2968</a></li>
+      <li><a href="mailto:wyning2004@gmail.com">wyning2004@gmail.com</a></li>
     </ul>
+
+    <div class="sidebar-actions">
+      <div class="icon-item">
+        <a class="icon-link" href="https://linkedin.com/in/yuning-wang-10888a321/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19ZM8.34 10.55H5.67V18H8.34V10.55ZM7 6.3A1.55 1.55 0 1 0 7 9.4A1.55 1.55 0 1 0 7 6.3ZM18.33 13.46C18.33 11.05 16.81 10.27 15.52 10.27C14.47 10.27 13.81 10.85 13.52 11.26V10.55H10.96V18H13.63V13.97C13.63 12.91 13.83 11.88 15.15 11.88C16.45 11.88 16.47 13.1 16.47 14.03V18H19.14L18.33 13.46Z"/>
+          </svg>
+        </a>
+        <span class="icon-label">Linkedin</span>
+      </div>
+      <div class="icon-item">
+        <a class="icon-link" href="assets/cv_wang_yuning.pdf" target="_blank" rel="noreferrer" aria-label="Curriculum Vitae">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14 2H7C5.9 2 5 2.9 5 4V20C5 21.1 5.9 22 7 22H17C18.1 22 19 21.1 19 20V7L14 2ZM13 9V3.5L17.5 8H14C13.45 8 13 8.45 13 9ZM9 13H15V15H9V13ZM9 17H15V19H9V17ZM9 9H11V11H9V9Z"/>
+          </svg>
+        </a>
+        <span class="icon-label">CV</span>
+      </div>
+    </div>
   </aside>
 
   <main class="content-area">
     <nav class="tabs-nav">
-      <button class="tab-btn active" onclick="showTab('edu')">Education</button>
-      <button class="tab-btn" onclick="showTab('exp')">Experience</button>
-      <button class="tab-btn" onclick="showTab('proj')">Projects</button>
-      <button class="tab-btn" onclick="showTab('skill')">Skills & Honors</button>
+      <button class="tab-btn active" onclick="showTab('education', this)">Education</button>
+      <button class="tab-btn" onclick="showTab('experience', this)">Experience</button>
+      <button class="tab-btn" onclick="showTab('research', this)">Research</button>
+      <button class="tab-btn" onclick="showTab('projects', this)">Projects</button>
+      <button class="tab-btn" onclick="showTab('elsewhere', this)">Elsewhere</button>
     </nav>
 
-    <section id="edu" class="tab-pane active">
-      <div class="entry">
-        <div class="entry-header">
-          <h3>The Hong Kong University of Science and Technology (HKUST)</h3>
-          <span class="date">Sep 2022 - Jun 2026</span>
-        </div>
-        <span class="sub">BEng in Computer Science, Minor in Mathematics | Hong Kong</span>
-        <ul>
-          <li>CGA: 4.003/4.3 | Rank: 4/145</li>
-          <li>GRE: V 152 | Q 170 | AW 4.0</li>
-          <li>Distinction: Algorithms, AI, Data Viz, OS, Probability & Stats.</li>
-        </ul>
+    <section id="education" class="tab-pane active">
+      <div class="section-intro">
+        <h2>Education</h2>
       </div>
+
       <div class="entry">
-        <div class="entry-header">
-          <h3>Royal Institute of Technology (KTH)</h3>
-          <span class="date">Jan - Jun 2025</span>
+        <div class="entry-school">
+          <a class="school-link dark-surface" href="https://hkust.edu.hk/" target="_blank" rel="noreferrer" aria-label="HKUST official website">
+            <img src="images/universities/hkust-logo.svg" alt="HKUST official logo">
+          </a>
+          <div class="entry-body">
+            <div class="entry-header">
+              <h3><a href="https://hkust.edu.hk/" target="_blank" rel="noreferrer">The Hong Kong University of Science and Technology</a></h3>
+              <span class="date">Sep 2022 - Jun 2026 (expected)</span>
+            </div>
+            <span class="sub">Bachelor of Engineering in Computer Science, Minor in Mathematics | Hong Kong</span>
+            <ul>
+              <li>CGA 4.064/4.3, ranked 3rd out of 145.</li>
+              <li>GRE: Verbal 152, Quantitative 170, Analytical Writing 4.0.</li>
+              <li>Courses with distinction include Programming (Python, Java, C++), Design and Analysis of Algorithms, Artificial Intelligence, Data Visualization, Operating Systems, Probability and Statistics, Linear Algebra, and Economics.</li>
+              <li>Honors and awards: University Admission Scholarship, Mr. Andrew Shiu-Keung Fung Scholarship, Lee Hysan Foundation Exchange Scholarship, SENG Dean's List</li>
+            </ul>
+          </div>
         </div>
-        <span class="sub">Exchange Student (EECS) | Stockholm, Sweden</span>
-        <ul>
-          <li>Performed excellently in all academic courses,including Software Engineering, Information Visualization, Deep
-            Learning in Data Science and Optimization.</li>
-          <li>Gained a deeper understanding of Swedish history, society and culture.</li>
-        </ul>
       </div>
+
       <div class="entry">
-        <div class="entry-header">
-          <h3>Universidad San Francisco de Quito (USFQ)</h3>
-          <span class="date">Oct - Dec 2025</span>
+        <div class="entry-school">
+          <a class="school-link dark-surface" href="https://www.kth.se/en" target="_blank" rel="noreferrer" aria-label="KTH official website">
+            <img src="images/universities/kth-logo.svg" alt="KTH official logo">
+          </a>
+          <div class="entry-body">
+            <div class="entry-header">
+              <h3><a href="https://www.kth.se/en" target="_blank" rel="noreferrer">Royal Institute of Technology (KTH)</a></h3>
+              <span class="date">Jan 2025 - Jun 2025</span>
+            </div>
+            <span class="sub">Exchange student, School of Electrical Engineering and Computer Science (EECS) | Stockholm, Sweden</span>
+            <ul>
+              <li>Performed excellently in Software Engineering, Information Visualization, Deep Learning in Data Science, and Optimization.</li>
+              <li>Built a stronger understanding of Swedish history, society, and culture alongside the technical exchange.</li>
+            </ul>
+          </div>
         </div>
-        <span class="sub">Virtual Exchange Student | Quito,Ecuador</span>
-        <ul>
-          <li>Developed fundamental drawing skills for instance still life and landscape.</li>
-        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-school">
+          <a class="school-link light-surface" href="https://www.usfq.edu.ec/en" target="_blank" rel="noreferrer" aria-label="USFQ official website">
+            <img src="images/universities/usfq-logo.svg" alt="USFQ official logo">
+          </a>
+          <div class="entry-body">
+            <div class="entry-header">
+              <h3><a href="https://www.usfq.edu.ec/en" target="_blank" rel="noreferrer">Universidad San Francisco de Quito</a></h3>
+              <span class="date">Oct 2025 - Dec 2025</span>
+            </div>
+            <span class="sub">Virtual exchange student | Quito, Ecuador</span>
+            <ul>
+              <li>Developed fundamental drawing skills through still life and landscape practice.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="exp" class="tab-pane">
+    <section id="experience" class="tab-pane">
+      <div class="section-intro">
+        <h2>Professional experience</h2>
+      </div>
+
+      <div class="subsection-divider">
+        <h3>Industry &amp; Technical Experience</h3>
+      </div>
+
       <div class="entry">
         <div class="entry-header">
           <h3>Hong Kong Observatory (HKO)</h3>
-          <span class="date">Jun - Aug 2025</span>
+          <span class="date">Jun 2025 - Aug 2025</span>
         </div>
-        <span class="sub">Summer Placement, IT Management</span>
+        <span class="sub">Summer Placement, Information Technology Management | Hong Kong</span>
         <ul>
-          <li>Deployed distilled LLM for automated weather transcription using FastAPI/React.</li>
-          <li>Achieved >90% model reduction via 4-bit quantization while keeping bilingual quality.</li>
+          <li>Spearheaded an 8-week solo project to deploy a distilled LLM for automated weather TV transcription, handling the full pipeline from data curation to FastAPI and React implementation.</li>
+          <li>Achieved more than 90% model size reduction via knowledge distillation and 4-bit quantization while preserving bilingual Cantonese and English quality.</li>
+          <li>Delivered a production-ready tool in a secure environment and received positive feedback for customized UI and UX.</li>
         </ul>
       </div>
-      <div class="entry">
+
+      <div class="entry" id="hkust-library-project">
         <div class="entry-header">
           <h3>HKUST Library</h3>
-          <span class="date">Sep - Dec 2024</span>
+          <span class="date">Sep 2024 - Dec 2024</span>
         </div>
-        <span class="sub">Developer, DS Colab Project</span>
+        <span class="sub">Developer, DS Colab Project | Hong Kong</span>
         <ul>
-          <li>Built a bilingual topic modeling app using Streamlit and BERTopic.</li>
-          <li>Developed custom Chinese text segmentation for non-English datasets.</li>
+          <li>Engineered a bilingual topic modeling application using Streamlit and BERTopic for no-code semantic analysis in digital humanities research.</li>
+          <li>Implemented custom Chinese text segmentation to resolve tokenization issues for non-English datasets.</li>
+          <li>Developed interactive visualizations that made complex model outputs interpretable for researchers.</li>
         </ul>
       </div>
+
+      <div class="subsection-divider">
+        <h3>Teaching &amp; Leadership</h3>
+      </div>
+
       <div class="entry">
         <div class="entry-header">
-          <h3>Teaching & Leadership</h3>
+          <h3>Department of Computer Science and Engineering (CSE), HKUST</h3>
+          <span class="date">Dec 2025 - Jan 2026</span>
+        </div>
+        <span class="sub">Teaching Assistant of COMP 1023: Introduction to Python Programming</span>
+        <ul>
+          <li>Designed beginner-friendly assignments with interactive UIs and autograders.</li>
+          <li>Reviewed course materials and gave feedbacks.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <h3>Undergraduate Recruitment and Admissions Office (URAO), HKUST</h3>
           <span class="date">2023 - 2026</span>
         </div>
+        <span class="sub">Deputy Head Student Ambassador</span>
         <ul>
-          <li>Undergraduate TA for COMP1023 (Python Programming).</li>
-          <li>Deputy Head Student Ambassador (URAO), leading Greater China recruitment.</li>
+          <li>Led the Greater China recruitment team to conduct info sessions and interviews.</li>
+          <li>Managed official social media channels (WeChat, Rednote), directing content creation and engagement strategies.</li>
         </ul>
       </div>
     </section>
 
-    <section id="proj" class="tab-pane">
-      <div class="entry">
-        <div class="entry-header">
-          <h3>RoboAnalyzer: Stock Analysis System</h3>
-          <span class="date">2025 - Present</span>
-        </div>
-        <span class="sub">Final Year Project | Prof. Yangqiu Song</span>
-        <p><small>Architected a pipeline identifying emergent stocks using LLM agents and Backtrader.</small></p>
-        <div><span class="tag">LLM Agents</span><span class="tag">Backtrader</span><span class="tag">Streamlit</span></div>
+    <section id="research" class="tab-pane">
+      <div class="section-intro">
+        <h2>Research and publications</h2>
       </div>
+
+      <div class="subsection-divider">
+        <h3>Research Experience</h3>
+      </div>
+
       <div class="entry">
         <div class="entry-header">
-          <h3>Vision Fine-tuning (LoRA)</h3>
-          <span class="date">Apr - May 2025</span>
+          <h3>Undergraduate Research Opportunities Program (UROP)</h3>
+          <span class="date">Jun 2024 - Apr 2025</span>
         </div>
-        <span class="sub">KTH Course Project | Prof. Josephine Sullivan</span>
-        <p><small>Awarded "Best Report of the Batch" for comparative study of ResNet152 vs. ViT.</small></p>
-        <div><span class="tag">PyTorch</span><span class="tag">LoRA</span><span class="tag">Vision Transformers</span></div>
+        <span class="sub">Speech-to-OverpassQL Model, supervised by Prof. Raymond Chi-Wing Wong | HKUST</span>
+        <ul>
+          <li>Conducted literature review on NLP and speech recognition.</li>
+          <li>Investigated the feasibility of direct Speech-to-OverpassQL translation for OpenStreetMap queries.</li>
+        </ul>
+      </div>
+
+      <div class="subsection-divider">
+        <h3>Publications &amp; Presentations</h3>
+      </div>
+
+      <div class="publication">
+        <p>Yip, S. L. and Wang, Y. (2025). <em>From Challenges to Solutions: Insights from Our Journey of Developing a Topic Modeling Tool for English and Chinese.</em> Presented at the Global Digital Humanities Symposium (GDHS), Michigan State University. <a href="https://doi.org/10.17613/sb0t9-qp319" target="_blank" rel="noreferrer">doi.org/10.17613/sb0t9-qp319</a></p>
+        <p>This presentation grew out of the <a href="#hkust-library-project" onclick="openExperienceProject(event, 'hkust-library-project')">HKUST Library topic modeling project</a>.</p>
       </div>
     </section>
 
-    <section id="skill" class="tab-pane">
-      <h3>Technical Toolkit</h3>
-      <p><strong>Programming:</strong> Python, Java, C/C++, Go, SQL, JavaScript, LaTeX</p>
-      <p><strong>AI/Data:</strong> PyTorch, Hugging Face, Pandas, OpenCV, BERTopic</p>
+    <section id="projects" class="tab-pane">
+      <div class="section-intro">
+        <h2>Selected projects</h2>
+      </div>
 
-      <h3 style="margin-top:40px">Honors & Awards</h3>
-      <ul style="list-style: none; padding: 0;">
-        <li>🏆 University Admission Scholarship (Full Tuition + Living)</li>
-        <li>🏆 Mr. Andrew Shiu-Keung Fung Scholarship</li>
-        <li>🏆 Lee Hysan Foundation Exchange Scholarship (2025)</li>
-        <li>🏆 SENG Dean's List (Every semester)</li>
-      </ul>
+      <div class="entry">
+        <div class="entry-header">
+          <h3>RoboAnalyzer: Automatic Emergent Stock Analysis System</h3>
+          <span class="date">Jun 2025 - Present</span>
+        </div>
+        <span class="sub">Final Year Project, supervised by Prof. Yangqiu Song | HKUST</span>
+        <ul>
+          <li>Architected an automated pipeline identifying emergent stocks integrating LLM agents for analysis.</li>
+          <li>Built a Streamlit dashboard for real-time engagement.</li>
+          <li>Developed a Backtrader engine to simulate momentum strategies.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">LLM Agents</span>
+          <span class="tag">Backtrader</span>
+          <span class="tag">Streamlit</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <h3>Advanced Fine-tuning &amp; Semi-supervised Methods in Vision</h3>
+          <span class="date">Apr 2025 - May 2025</span>
+        </div>
+        <span class="sub">Course Project: Deep Learning in Data Science, instructed by Prof. Josephine Sullivan | KTH</span>
+        <ul>
+          <li>Conducted a comparative study of ResNet152 vs. ViT on the Oxford-IIIT Pet dataset using LoRA.</li>
+          <li>Implemented LoRA to reduce parameters by more than 99% and pseudo-labeling to boost accuracy from 50.7% to 74.9% in limited-label scenarios.</li>
+          <li>Awarded best report of the batch during the poster session for experimental depth.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">PyTorch</span>
+          <span class="tag">LoRA</span>
+          <span class="tag">Pseudo-labeling</span>
+          <span class="tag">Vision Transformers</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <h3>Income vs. Expense Atlas</h3>
+          <span class="date">Jan 2025 - Mar 2025</span>
+        </div>
+        <span class="sub">Course Project: Information Visualization, instructed by Prof. Tino Weinkauf | KTH</span>
+        <ul>
+          <li>Developed a responsive visualization tool mapping purchasing power across 680+ cities.</li>
+          <li>Used dynamic choropleth maps and scatter plots to support city-level comparison.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">Information Visualization</span>
+          <span class="tag">Choropleth Maps</span>
+          <span class="tag">Scatter Plots</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="elsewhere" class="tab-pane">
+      <div class="section-intro">
+        <h2>Elsewhere</h2>
+        <p>A small curated space for the references, places, images, and fragments that sit adjacent to work and quietly shape perspective.</p>
+      </div>
+
+      <div class="curated-grid">
+        <article class="curated-card">
+          <span class="curated-label">Music</span>
+          <h3>Listening Notes <span class="curated-arrow">↗</span></h3>
+          <p>Placeholder for albums, composers, or songs that stay in rotation and return as a way of thinking through mood, pacing, and attention.</p>
+        </article>
+
+        <article class="curated-card">
+          <span class="curated-label">Places</span>
+          <h3>Travel Memory <span class="curated-arrow">↗</span></h3>
+          <p>Placeholder for a place remembered less as an itinerary and more as a texture: light, weather, architecture, or a passing conversation.</p>
+        </article>
+
+        <article class="curated-card">
+          <span class="curated-label">Visual Notes</span>
+          <h3>Selected Images <span class="curated-arrow">↗</span></h3>
+          <p>Placeholder for a restrained selection of photographs or visual fragments kept for composition, atmosphere, and ways of noticing.</p>
+        </article>
+
+        <article class="curated-card">
+          <span class="curated-label">Fragments</span>
+          <h3>Short Reflections <span class="curated-arrow">↗</span></h3>
+          <p>Placeholder for compact observations, passing ideas, or lines worth keeping without expanding them into full essays.</p>
+        </article>
+
+        <article class="curated-card">
+          <span class="curated-label">Observations</span>
+          <h3>What Shapes Thinking <span class="curated-arrow">↗</span></h3>
+          <p>Placeholder for books, encounters, habits, or small recurring details that influence how questions are framed and pursued.</p>
+        </article>
+      </div>
     </section>
   </main>
 </div>
 
 <script>
-  function showTab(tabId) {
-    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  function showTab(tabId, button) {
+    document.querySelectorAll('.tab-pane').forEach((pane) => pane.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach((tab) => tab.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
-    event.currentTarget.classList.add('active');
+    button.classList.add('active');
   }
 
-  // Modern Background Animation
+  function openExperienceProject(event, projectId) {
+    event.preventDefault();
+    const experienceButton = Array.from(document.querySelectorAll('.tab-btn')).find((button) => button.textContent === 'Experience');
+    showTab('experience', experienceButton);
+    requestAnimationFrame(() => {
+      const target = document.getElementById(projectId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+
   const canvas = document.getElementById('bg-canvas');
   const ctx = canvas.getContext('2d');
   let particles = [];
@@ -262,31 +894,38 @@
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     particles = [];
-    for(let i=0; i<60; i++) {
+
+    for (let i = 0; i < 80; i += 1) {
       particles.push({
-        x: Math.random()*canvas.width,
-        y: Math.random()*canvas.height,
-        r: Math.random()*2+1,
-        v: Math.random()*0.5 + 0.2
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 2.2 + 0.8,
+        velocity: Math.random() * 0.45 + 0.15
       });
     }
   }
 
   function animate() {
-    ctx.fillStyle = "#0a0a0c";
-    ctx.fillRect(0,0,canvas.width, canvas.height);
-    ctx.fillStyle = "rgba(0, 210, 255, 0.3)";
-    particles.forEach(p => {
-      p.y -= p.v;
-      if(p.y < 0) p.y = canvas.height;
+    ctx.fillStyle = '#04111d';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'rgba(130, 215, 255, 0.32)';
+
+    particles.forEach((particle) => {
+      particle.y -= particle.velocity;
+      if (particle.y < -8) {
+        particle.y = canvas.height + 8;
+      }
+
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
       ctx.fill();
     });
+
     requestAnimationFrame(animate);
   }
 
-  init(); animate();
+  init();
+  animate();
   window.addEventListener('resize', init);
 </script>
 </body>
