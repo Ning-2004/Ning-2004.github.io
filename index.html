@@ -154,6 +154,15 @@
       gap: var(--space-5);
     }
 
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--space-3);
+      min-width: 0;
+      flex: 1;
+    }
+
     .site-brand {
       display: inline-flex;
       align-items: center;
@@ -389,6 +398,40 @@
       gap: var(--space-2);
       align-items: center;
       justify-content: flex-end;
+    }
+
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
+      background: color-mix(in srgb, var(--panel-strong) 88%, var(--bg));
+      box-shadow: var(--shadow-sm);
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-pill);
+      transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .lang-btn:hover,
+    .lang-btn:focus-visible {
+      color: var(--text);
+      background: var(--accent-soft);
+    }
+
+    .lang-btn.active {
+      color: var(--accent-strong);
+      background: var(--accent-soft);
     }
 
     .tab-btn {
@@ -695,6 +738,12 @@
         padding: var(--space-3) 0;
       }
 
+      .topbar-actions {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
       .toolbar {
         align-items: flex-start;
         flex-direction: column;
@@ -738,6 +787,10 @@
         justify-content: flex-start;
       }
 
+      .lang-switcher {
+        align-self: flex-start;
+      }
+
       .tabs-nav::-webkit-scrollbar {
         display: none;
       }
@@ -769,13 +822,20 @@
         <span class="site-brand-name">Yuning Wang</span>
       </a>
 
-      <nav class="tabs-nav" role="tablist" aria-label="Profile sections">
-        <button class="tab-btn active" type="button" role="tab" id="tab-education" aria-selected="true" aria-controls="education" onclick="showTab('education', this)">Education</button>
-        <button class="tab-btn" type="button" role="tab" id="tab-experience" aria-selected="false" aria-controls="experience" onclick="showTab('experience', this)">Experience</button>
-        <button class="tab-btn" type="button" role="tab" id="tab-projects" aria-selected="false" aria-controls="projects" onclick="showTab('projects', this)">Projects</button>
-        <button class="tab-btn" type="button" role="tab" id="tab-research" aria-selected="false" aria-controls="research" onclick="showTab('research', this)">Research</button>
-        <button class="tab-btn" type="button" role="tab" id="tab-elsewhere" aria-selected="false" aria-controls="elsewhere" onclick="showTab('elsewhere', this)">Beyond Work</button>
-      </nav>
+      <div class="topbar-actions">
+        <nav class="tabs-nav" role="tablist" aria-label="Profile sections">
+          <button class="tab-btn active" type="button" role="tab" id="tab-education" aria-selected="true" aria-controls="education" onclick="showTab('education', this)" data-i18n="tab_education">Education</button>
+          <button class="tab-btn" type="button" role="tab" id="tab-experience" aria-selected="false" aria-controls="experience" onclick="showTab('experience', this)" data-i18n="tab_experience">Experience</button>
+          <button class="tab-btn" type="button" role="tab" id="tab-projects" aria-selected="false" aria-controls="projects" onclick="showTab('projects', this)" data-i18n="tab_projects">Projects</button>
+          <button class="tab-btn" type="button" role="tab" id="tab-research" aria-selected="false" aria-controls="research" onclick="showTab('research', this)" data-i18n="tab_research">Research</button>
+          <button class="tab-btn" type="button" role="tab" id="tab-elsewhere" aria-selected="false" aria-controls="elsewhere" onclick="showTab('elsewhere', this)" data-i18n="tab_beyond">Beyond Work</button>
+        </nav>
+
+        <div class="lang-switcher" role="group" aria-label="Language switcher">
+          <button class="lang-btn active" type="button" id="lang-en" data-lang="en">English</button>
+          <button class="lang-btn" type="button" id="lang-zh-Hant" data-lang="zh-Hant">繁体中文</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -784,7 +844,7 @@
       <img src="images/portrait.jpg" alt="Yuning Wang" class="portrait">
       <h1>Yuning Wang</h1>
       <br>
-      <p>I am interested in developing trustworthy and socially grounded AI systems that are technically rigorous, transparent in use, and responsive to long-term public benefit.</p>
+      <p data-i18n="sidebar_summary">I am interested in developing trustworthy and socially grounded AI systems that are technically rigorous, transparent in use, and responsive to long-term public benefit.</p>
 
       <ul class="contact-links">
         <li><a href="tel:+85284902968">+852 8490 2968</a></li>
@@ -799,7 +859,7 @@
                 <path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19ZM8.34 10.55H5.67V18H8.34V10.55ZM7 6.3A1.55 1.55 0 1 0 7 9.4A1.55 1.55 0 1 0 7 6.3ZM18.33 13.46C18.33 11.05 16.81 10.27 15.52 10.27C14.47 10.27 13.81 10.85 13.52 11.26V10.55H10.96V18H13.63V13.97C13.63 12.91 13.83 11.88 15.15 11.88C16.45 11.88 16.47 13.1 16.47 14.03V18H19.14L18.33 13.46Z"/>
               </svg>
             </a>
-            <span class="icon-label">LinkedIn</span>
+            <span class="icon-label" data-i18n="label_linkedin">LinkedIn</span>
           </div>
           <div class="icon-item">
             <a class="icon-link" href="assets/cv_wang_yuning.pdf" target="_blank" rel="noreferrer" aria-label="Curriculum Vitae">
@@ -807,7 +867,7 @@
                 <path d="M14 2H7C5.9 2 5 2.9 5 4V20C5 21.1 5.9 22 7 22H17C18.1 22 19 21.1 19 20V7L14 2ZM13 9V3.5L17.5 8H14C13.45 8 13 8.45 13 9ZM9 13H15V15H9V13ZM9 17H15V19H9V17ZM9 9H11V11H9V9Z"/>
               </svg>
             </a>
-            <span class="icon-label">CV</span>
+            <span class="icon-label" data-i18n="label_cv">CV</span>
           </div>
         </div>
         <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Toggle color theme" aria-pressed="false">
@@ -820,21 +880,21 @@
     <main class="content-area">
       <section id="education" class="tab-pane active" role="tabpanel" aria-labelledby="tab-education">
         <div class="section-intro">
-          <h2>Education</h2>
+          <h2 data-i18n="education_title">Education</h2>
         </div>
 
         <div class="entry">
           <div class="entry-body">
             <div class="entry-header">
-              <h3><a href="https://hkust.edu.hk/" target="_blank" rel="noreferrer">The Hong Kong University of Science and Technology</a></h3>
-              <span class="date">Sep 2022 - Jun 2026 (expected)</span>
+              <h3><a href="https://hkust.edu.hk/" target="_blank" rel="noreferrer" data-i18n="edu_hkust_title">The Hong Kong University of Science and Technology</a></h3>
+              <span class="date" data-i18n="edu_hkust_date">Sep 2022 - Jun 2026 (expected)</span>
             </div>
-            <span class="sub">Bachelor of Engineering in Computer Science, Minor in Mathematics | Hong Kong</span>
+            <span class="sub" data-i18n="edu_hkust_sub">Bachelor of Engineering in Computer Science, Minor in Mathematics | Hong Kong</span>
             <ul>
-              <li>CGA 4.064/4.3, ranked 3rd out of 145.</li>
-              <li>GRE: Verbal 152, Quantitative 170, Analytical Writing 4.0.</li>
-              <li>Courses with distinction include Programming (Python, Java, C++), Design and Analysis of Algorithms, Artificial Intelligence, Data Visualization, Operating Systems, Probability and Statistics, Linear Algebra, and Economics.</li>
-              <li>Honors and awards: University Admission Scholarship, Mr. Andrew Shiu-Keung Fung Scholarship, Lee Hysan Foundation Exchange Scholarship, SENG Dean's List.</li>
+              <li data-i18n="edu_hkust_li1">CGA 4.064/4.3, ranked 3rd out of 145.</li>
+              <li data-i18n="edu_hkust_li2">GRE: Verbal 152, Quantitative 170, Analytical Writing 4.0.</li>
+              <li data-i18n="edu_hkust_li3">Courses with distinction include Programming (Python, Java, C++), Design and Analysis of Algorithms, Artificial Intelligence, Data Visualization, Operating Systems, Probability and Statistics, Linear Algebra, and Economics.</li>
+              <li data-i18n="edu_hkust_li4">Honors and awards: University Admission Scholarship, Mr. Andrew Shiu-Keung Fung Scholarship, Lee Hysan Foundation Exchange Scholarship, SENG Dean's List.</li>
             </ul>
           </div>
         </div>
@@ -842,13 +902,13 @@
         <div class="entry">
           <div class="entry-body">
             <div class="entry-header">
-              <h3><a href="https://www.kth.se/en" target="_blank" rel="noreferrer">Royal Institute of Technology (KTH)</a></h3>
-              <span class="date">Jan 2025 - Jun 2025</span>
+              <h3><a href="https://www.kth.se/en" target="_blank" rel="noreferrer" data-i18n="edu_kth_title">Royal Institute of Technology (KTH)</a></h3>
+              <span class="date" data-i18n="edu_kth_date">Jan 2025 - Jun 2025</span>
             </div>
-            <span class="sub">Exchange student, School of Electrical Engineering and Computer Science (EECS) | Stockholm, Sweden</span>
+            <span class="sub" data-i18n="edu_kth_sub">Exchange student, School of Electrical Engineering and Computer Science (EECS) | Stockholm, Sweden</span>
             <ul>
-              <li>Performed excellently in Software Engineering, Information Visualization, Deep Learning in Data Science, and Optimization.</li>
-              <li>Built a stronger understanding of Swedish history, society, and culture alongside the technical exchange.</li>
+              <li data-i18n="edu_kth_li1">Performed excellently in Software Engineering, Information Visualization, Deep Learning in Data Science, and Optimization.</li>
+              <li data-i18n="edu_kth_li2">Built a stronger understanding of Swedish history, society, and culture alongside the technical exchange.</li>
             </ul>
           </div>
         </div>
@@ -856,12 +916,12 @@
         <div class="entry">
           <div class="entry-body">
             <div class="entry-header">
-              <h3><a href="https://www.usfq.edu.ec/en" target="_blank" rel="noreferrer">Universidad San Francisco de Quito</a></h3>
-              <span class="date">Oct 2025 - Dec 2025</span>
+              <h3><a href="https://www.usfq.edu.ec/en" target="_blank" rel="noreferrer" data-i18n="edu_usfq_title">Universidad San Francisco de Quito</a></h3>
+              <span class="date" data-i18n="edu_usfq_date">Oct 2025 - Dec 2025</span>
             </div>
-            <span class="sub">Virtual exchange student | Quito, Ecuador</span>
+            <span class="sub" data-i18n="edu_usfq_sub">Virtual exchange student | Quito, Ecuador</span>
             <ul>
-              <li>Developed fundamental drawing skills through still life and landscape practice.</li>
+              <li data-i18n="edu_usfq_li1">Developed fundamental drawing skills through still life and landscape practice.</li>
             </ul>
           </div>
         </div>
@@ -869,83 +929,83 @@
 
       <section id="experience" class="tab-pane" role="tabpanel" aria-labelledby="tab-experience">
         <div class="section-intro">
-          <h2>Experience</h2>
+          <h2 data-i18n="experience_title">Experience</h2>
         </div>
 
         <div class="subsection-divider">
-          <h3>Industry &amp; Technical Experience</h3>
+          <h3 data-i18n="experience_industry">Industry &amp; Technical Experience</h3>
         </div>
 
         <div class="entry">
           <div class="entry-header">
-            <h3>Hong Kong Observatory (HKO)</h3>
-            <span class="date">Jun 2025 - Aug 2025</span>
+            <h3 data-i18n="exp_hko_title">Hong Kong Observatory (HKO)</h3>
+            <span class="date" data-i18n="exp_hko_date">Jun 2025 - Aug 2025</span>
           </div>
-          <span class="sub">Summer Placement, Information Technology Management | Hong Kong</span>
+          <span class="sub" data-i18n="exp_hko_sub">Summer Placement, Information Technology Management | Hong Kong</span>
           <ul>
-            <li>Spearheaded an 8-week solo project to deploy a distilled LLM for automated weather TV transcription, handling the full pipeline from data curation to FastAPI and React implementation.</li>
-            <li>Achieved more than 90% model size reduction via knowledge distillation and 4-bit quantization while preserving bilingual Cantonese and English quality.</li>
-            <li>Delivered a production-ready tool in a secure environment and received positive feedback for customized UI and UX.</li>
+            <li data-i18n="exp_hko_li1">Spearheaded an 8-week solo project to deploy a distilled LLM for automated weather TV transcription, handling the full pipeline from data curation to FastAPI and React implementation.</li>
+            <li data-i18n="exp_hko_li2">Achieved more than 90% model size reduction via knowledge distillation and 4-bit quantization while preserving bilingual Cantonese and English quality.</li>
+            <li data-i18n="exp_hko_li3">Delivered a production-ready tool in a secure environment and received positive feedback for customized UI and UX.</li>
           </ul>
         </div>
 
         <div class="entry" id="hkust-library-project">
           <div class="entry-header">
-            <h3>HKUST Library</h3>
-            <span class="date">Sep 2024 - Dec 2024</span>
+            <h3 data-i18n="exp_library_title">HKUST Library</h3>
+            <span class="date" data-i18n="exp_library_date">Sep 2024 - Dec 2024</span>
           </div>
-          <span class="sub">Developer, DS Colab Project | Hong Kong</span>
+          <span class="sub" data-i18n="exp_library_sub">Developer, DS Colab Project | Hong Kong</span>
           <ul>
-            <li>Engineered a bilingual topic modeling application using Streamlit and BERTopic for no-code semantic analysis in digital humanities research.</li>
-            <li>Implemented custom Chinese text segmentation to resolve tokenization issues for non-English datasets.</li>
-            <li>Developed interactive visualizations that made complex model outputs interpretable for researchers.</li>
+            <li data-i18n="exp_library_li1">Engineered a bilingual topic modeling application using Streamlit and BERTopic for no-code semantic analysis in digital humanities research.</li>
+            <li data-i18n="exp_library_li2">Implemented custom Chinese text segmentation to resolve tokenization issues for non-English datasets.</li>
+            <li data-i18n="exp_library_li3">Developed interactive visualizations that made complex model outputs interpretable for researchers.</li>
           </ul>
         </div>
 
         <div class="subsection-divider">
-          <h3>Teaching &amp; Leadership</h3>
+          <h3 data-i18n="experience_teaching">Teaching &amp; Leadership</h3>
         </div>
 
         <div class="entry">
           <div class="entry-header">
-            <h3>Department of Computer Science and Engineering (CSE), HKUST</h3>
-            <span class="date">Dec 2025 - Jan 2026</span>
+            <h3 data-i18n="exp_ta_title">Department of Computer Science and Engineering (CSE), HKUST</h3>
+            <span class="date" data-i18n="exp_ta_date">Dec 2025 - Jan 2026</span>
           </div>
-          <span class="sub">Teaching Assistant of COMP 1023: Introduction to Python Programming</span>
+          <span class="sub" data-i18n="exp_ta_sub">Teaching Assistant of COMP 1023: Introduction to Python Programming</span>
           <ul>
-            <li>Designed beginner-friendly assignments with interactive UIs and autograders.</li>
-            <li>Reviewed course materials and gave feedback.</li>
+            <li data-i18n="exp_ta_li1">Designed beginner-friendly assignments with interactive UIs and autograders.</li>
+            <li data-i18n="exp_ta_li2">Reviewed course materials and gave feedback.</li>
           </ul>
         </div>
 
         <div class="entry">
           <div class="entry-header">
-            <h3>Undergraduate Recruitment and Admissions Office (URAO), HKUST</h3>
-            <span class="date">2023 - 2026</span>
+            <h3 data-i18n="exp_urao_title">Undergraduate Recruitment and Admissions Office (URAO), HKUST</h3>
+            <span class="date" data-i18n="exp_urao_date">2023 - 2026</span>
           </div>
-          <span class="sub">Deputy Head Student Ambassador</span>
+          <span class="sub" data-i18n="exp_urao_sub">Deputy Head Student Ambassador</span>
           <ul>
-            <li>Led the Greater China recruitment team to conduct info sessions and interviews.</li>
-            <li>Managed official social media channels (WeChat, Rednote), directing content creation and engagement strategies.</li>
+            <li data-i18n="exp_urao_li1">Led the Greater China recruitment team to conduct info sessions and interviews.</li>
+            <li data-i18n="exp_urao_li2">Managed official social media channels (WeChat, Rednote), directing content creation and engagement strategies.</li>
           </ul>
         </div>
       </section>
 
       <section id="projects" class="tab-pane" role="tabpanel" aria-labelledby="tab-projects">
         <div class="section-intro">
-          <h2>Projects</h2>
+          <h2 data-i18n="projects_title">Projects</h2>
         </div>
 
         <div class="entry">
           <div class="entry-header">
-            <h3>RoboAnalyzer: Automatic Emergent Stock Analysis System</h3>
-            <span class="date">Jun 2025 - Present</span>
+            <h3 data-i18n="proj_robo_title">RoboAnalyzer: Automatic Emergent Stock Analysis System</h3>
+            <span class="date" data-i18n="proj_robo_date">Jun 2025 - Present</span>
           </div>
-          <span class="sub">Final Year Project, supervised by Prof. Yangqiu Song | HKUST</span>
+          <span class="sub" data-i18n="proj_robo_sub">Final Year Project, supervised by Prof. Yangqiu Song | HKUST</span>
           <ul>
-            <li>Architected an automated pipeline identifying emergent stocks integrating LLM agents for analysis.</li>
-            <li>Built a Streamlit dashboard for real-time engagement.</li>
-            <li>Developed a Backtrader engine to simulate momentum strategies.</li>
+            <li data-i18n="proj_robo_li1">Architected an automated pipeline identifying emergent stocks integrating LLM agents for analysis.</li>
+            <li data-i18n="proj_robo_li2">Built a Streamlit dashboard for real-time engagement.</li>
+            <li data-i18n="proj_robo_li3">Developed a Backtrader engine to simulate momentum strategies.</li>
           </ul>
           <div class="tag-row">
             <span class="tag">LLM Agents</span>
@@ -956,14 +1016,14 @@
 
         <div class="entry">
           <div class="entry-header">
-            <h3>Advanced Fine-tuning &amp; Semi-supervised Methods in Vision</h3>
-            <span class="date">Apr 2025 - May 2025</span>
+            <h3 data-i18n="proj_vision_title">Advanced Fine-tuning &amp; Semi-supervised Methods in Vision</h3>
+            <span class="date" data-i18n="proj_vision_date">Apr 2025 - May 2025</span>
           </div>
-          <span class="sub">Course Project: Deep Learning in Data Science, instructed by Prof. Josephine Sullivan | KTH</span>
+          <span class="sub" data-i18n="proj_vision_sub">Course Project: Deep Learning in Data Science, instructed by Prof. Josephine Sullivan | KTH</span>
           <ul>
-            <li>Conducted a comparative study of ResNet152 vs. ViT on the Oxford-IIIT Pet dataset using LoRA.</li>
-            <li>Implemented LoRA to reduce parameters by more than 99% and pseudo-labeling to boost accuracy from 50.7% to 74.9% in limited-label scenarios.</li>
-            <li>Awarded best report of the batch during the poster session for experimental depth.</li>
+            <li data-i18n="proj_vision_li1">Conducted a comparative study of ResNet152 vs. ViT on the Oxford-IIIT Pet dataset using LoRA.</li>
+            <li data-i18n="proj_vision_li2">Implemented LoRA to reduce parameters by more than 99% and pseudo-labeling to boost accuracy from 50.7% to 74.9% in limited-label scenarios.</li>
+            <li data-i18n="proj_vision_li3">Awarded best report of the batch during the poster session for experimental depth.</li>
           </ul>
           <div class="tag-row">
             <span class="tag">PyTorch</span>
@@ -975,13 +1035,13 @@
 
         <div class="entry">
           <div class="entry-header">
-            <h3>Income vs. Expense Atlas</h3>
-            <span class="date">Jan 2025 - Mar 2025</span>
+            <h3 data-i18n="proj_atlas_title">Income vs. Expense Atlas</h3>
+            <span class="date" data-i18n="proj_atlas_date">Jan 2025 - Mar 2025</span>
           </div>
-          <span class="sub">Course Project: Information Visualization, instructed by Prof. Tino Weinkauf | KTH</span>
+          <span class="sub" data-i18n="proj_atlas_sub">Course Project: Information Visualization, instructed by Prof. Tino Weinkauf | KTH</span>
           <ul>
-            <li>Developed a responsive visualization tool mapping purchasing power across 680+ cities.</li>
-            <li>Used dynamic choropleth maps and scatter plots to support city-level comparison.</li>
+            <li data-i18n="proj_atlas_li1">Developed a responsive visualization tool mapping purchasing power across 680+ cities.</li>
+            <li data-i18n="proj_atlas_li2">Used dynamic choropleth maps and scatter plots to support city-level comparison.</li>
           </ul>
           <div class="tag-row">
             <span class="tag">Information Visualization</span>
@@ -993,70 +1053,70 @@
 
       <section id="research" class="tab-pane" role="tabpanel" aria-labelledby="tab-research">
         <div class="section-intro">
-          <h2>Research</h2>
+          <h2 data-i18n="research_title">Research</h2>
         </div>
 
         <div class="subsection-divider">
-          <h3>Research Experience</h3>
+          <h3 data-i18n="research_experience">Research Experience</h3>
         </div>
 
         <div class="entry">
           <div class="entry-header">
-            <h3>Undergraduate Research Opportunities Program (UROP)</h3>
-            <span class="date">Jun 2024 - Apr 2025</span>
+            <h3 data-i18n="research_urop_title">Undergraduate Research Opportunities Program (UROP)</h3>
+            <span class="date" data-i18n="research_urop_date">Jun 2024 - Apr 2025</span>
           </div>
-          <span class="sub">Speech-to-OverpassQL Model, supervised by Prof. Raymond Chi-Wing Wong | HKUST</span>
+          <span class="sub" data-i18n="research_urop_sub">Speech-to-OverpassQL Model, supervised by Prof. Raymond Chi-Wing Wong | HKUST</span>
           <ul>
-            <li>Conducted literature review on NLP and speech recognition.</li>
-            <li>Investigated the feasibility of direct Speech-to-OverpassQL translation for OpenStreetMap queries.</li>
+            <li data-i18n="research_urop_li1">Conducted literature review on NLP and speech recognition.</li>
+            <li data-i18n="research_urop_li2">Investigated the feasibility of direct Speech-to-OverpassQL translation for OpenStreetMap queries.</li>
           </ul>
         </div>
 
         <div class="subsection-divider">
-          <h3>Publications &amp; Presentations</h3>
+          <h3 data-i18n="research_publications">Publications &amp; Presentations</h3>
         </div>
 
         <div class="publication">
-          <p>Yip, S. L. and Wang, Y. (2025). <em>From Challenges to Solutions: Insights from Our Journey of Developing a Topic Modeling Tool for English and Chinese.</em> Presented at the Global Digital Humanities Symposium (GDHS), Michigan State University. <a href="https://doi.org/10.17613/sb0t9-qp319" target="_blank" rel="noreferrer">doi.org/10.17613/sb0t9-qp319</a></p>
-          <p>This presentation grew out of the <a href="#hkust-library-project" onclick="openExperienceProject(event, 'hkust-library-project')">HKUST Library topic modeling project</a>.</p>
+          <p data-i18n-html="publication_p1">Yip, S. L. and Wang, Y. (2025). <em>From Challenges to Solutions: Insights from Our Journey of Developing a Topic Modeling Tool for English and Chinese.</em> Presented at the Global Digital Humanities Symposium (GDHS), Michigan State University. <a href="https://doi.org/10.17613/sb0t9-qp319" target="_blank" rel="noreferrer">doi.org/10.17613/sb0t9-qp319</a></p>
+          <p data-i18n-html="publication_p2">This presentation grew out of the <a href="#hkust-library-project" onclick="openExperienceProject(event, 'hkust-library-project')">HKUST Library topic modeling project</a>.</p>
         </div>
       </section>
 
       <section id="elsewhere" class="tab-pane" role="tabpanel" aria-labelledby="tab-elsewhere">
         <div class="section-intro">
-          <h2>Beyond Work</h2>
-          <p>A restrained space for references, places, images, and fragments that quietly shape attention, judgment, and perspective outside formal projects.</p>
+          <h2 data-i18n="beyond_title">Beyond Work</h2>
+          <p data-i18n="beyond_intro">A restrained space for references, places, images, and fragments that quietly shape attention, judgment, and perspective outside formal projects.</p>
         </div>
 
         <div class="curated-grid">
           <article class="curated-card">
-            <span class="curated-label">Music</span>
-            <h3>Listening Notes <span class="curated-arrow" aria-hidden="true">↗</span></h3>
-            <p>Albums, composers, or songs that remain in rotation and return as a way of thinking through mood, pacing, and attention.</p>
+            <span class="curated-label" data-i18n="beyond_music_label">Music</span>
+            <h3><span data-i18n="beyond_music_title">Listening Notes</span> <span class="curated-arrow" aria-hidden="true">↗</span></h3>
+            <p data-i18n="beyond_music_body">Albums, composers, or songs that remain in rotation and return as a way of thinking through mood, pacing, and attention.</p>
           </article>
 
           <article class="curated-card">
-            <span class="curated-label">Places</span>
-            <h3>Travel Memory <span class="curated-arrow" aria-hidden="true">↗</span></h3>
-            <p>Places remembered less as itineraries and more as textures: light, weather, architecture, or a passing conversation.</p>
+            <span class="curated-label" data-i18n="beyond_places_label">Places</span>
+            <h3><span data-i18n="beyond_places_title">Travel Memory</span> <span class="curated-arrow" aria-hidden="true">↗</span></h3>
+            <p data-i18n="beyond_places_body">Places remembered less as itineraries and more as textures: light, weather, architecture, or a passing conversation.</p>
           </article>
 
           <article class="curated-card">
-            <span class="curated-label">Visual Notes</span>
-            <h3>Selected Images <span class="curated-arrow" aria-hidden="true">↗</span></h3>
-            <p>A restrained selection of photographs or visual fragments kept for composition, atmosphere, and ways of noticing.</p>
+            <span class="curated-label" data-i18n="beyond_visual_label">Visual Notes</span>
+            <h3><span data-i18n="beyond_visual_title">Selected Images</span> <span class="curated-arrow" aria-hidden="true">↗</span></h3>
+            <p data-i18n="beyond_visual_body">A restrained selection of photographs or visual fragments kept for composition, atmosphere, and ways of noticing.</p>
           </article>
 
           <article class="curated-card">
-            <span class="curated-label">Fragments</span>
-            <h3>Short Reflections <span class="curated-arrow" aria-hidden="true">↗</span></h3>
-            <p>Compact observations, passing ideas, or lines worth keeping without expanding them into full essays.</p>
+            <span class="curated-label" data-i18n="beyond_fragments_label">Fragments</span>
+            <h3><span data-i18n="beyond_fragments_title">Short Reflections</span> <span class="curated-arrow" aria-hidden="true">↗</span></h3>
+            <p data-i18n="beyond_fragments_body">Compact observations, passing ideas, or lines worth keeping without expanding them into full essays.</p>
           </article>
 
           <article class="curated-card">
-            <span class="curated-label">Observations</span>
-            <h3>What Shapes Thinking <span class="curated-arrow" aria-hidden="true">↗</span></h3>
-            <p>Books, encounters, habits, or recurring details that influence how questions are framed and pursued.</p>
+            <span class="curated-label" data-i18n="beyond_observations_label">Observations</span>
+            <h3><span data-i18n="beyond_observations_title">What Shapes Thinking</span> <span class="curated-arrow" aria-hidden="true">↗</span></h3>
+            <p data-i18n="beyond_observations_body">Books, encounters, habits, or recurring details that influence how questions are framed and pursued.</p>
           </article>
         </div>
       </section>
@@ -1066,10 +1126,216 @@
 
 <script>
   const themeStorageKey = 'preferred-theme';
+  const languageStorageKey = 'preferred-language';
   const root = document.documentElement;
   const themeToggle = document.getElementById('theme-toggle');
   const themeToggleLabel = document.getElementById('theme-toggle-label');
+  const languageButtons = Array.from(document.querySelectorAll('.lang-btn'));
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+  let currentLanguage = 'en';
+
+  const translations = {
+    en: {
+      tab_education: 'Education',
+      tab_experience: 'Experience',
+      tab_projects: 'Projects',
+      tab_research: 'Research',
+      tab_beyond: 'Beyond Work',
+      sidebar_summary: 'I am interested in developing trustworthy and socially grounded AI systems that are technically rigorous, transparent in use, and responsive to long-term public benefit.',
+      label_linkedin: 'LinkedIn',
+      label_cv: 'CV',
+      education_title: 'Education',
+      edu_hkust_title: 'The Hong Kong University of Science and Technology',
+      edu_hkust_date: 'Sep 2022 - Jun 2026 (expected)',
+      edu_hkust_sub: 'Bachelor of Engineering in Computer Science, Minor in Mathematics | Hong Kong',
+      edu_hkust_li1: 'CGA 4.064/4.3, ranked 3rd out of 145.',
+      edu_hkust_li2: 'GRE: Verbal 152, Quantitative 170, Analytical Writing 4.0.',
+      edu_hkust_li3: 'Courses with distinction include Programming (Python, Java, C++), Design and Analysis of Algorithms, Artificial Intelligence, Data Visualization, Operating Systems, Probability and Statistics, Linear Algebra, and Economics.',
+      edu_hkust_li4: "Honors and awards: University Admission Scholarship, Mr. Andrew Shiu-Keung Fung Scholarship, Lee Hysan Foundation Exchange Scholarship, SENG Dean's List.",
+      edu_kth_title: 'Royal Institute of Technology (KTH)',
+      edu_kth_date: 'Jan 2025 - Jun 2025',
+      edu_kth_sub: 'Exchange student, School of Electrical Engineering and Computer Science (EECS) | Stockholm, Sweden',
+      edu_kth_li1: 'Performed excellently in Software Engineering, Information Visualization, Deep Learning in Data Science, and Optimization.',
+      edu_kth_li2: 'Built a stronger understanding of Swedish history, society, and culture alongside the technical exchange.',
+      edu_usfq_title: 'Universidad San Francisco de Quito',
+      edu_usfq_date: 'Oct 2025 - Dec 2025',
+      edu_usfq_sub: 'Virtual exchange student | Quito, Ecuador',
+      edu_usfq_li1: 'Developed fundamental drawing skills through still life and landscape practice.',
+      experience_title: 'Experience',
+      experience_industry: 'Industry & Technical Experience',
+      exp_hko_title: 'Hong Kong Observatory (HKO)',
+      exp_hko_date: 'Jun 2025 - Aug 2025',
+      exp_hko_sub: 'Summer Placement, Information Technology Management | Hong Kong',
+      exp_hko_li1: 'Spearheaded an 8-week solo project to deploy a distilled LLM for automated weather TV transcription, handling the full pipeline from data curation to FastAPI and React implementation.',
+      exp_hko_li2: 'Achieved more than 90% model size reduction via knowledge distillation and 4-bit quantization while preserving bilingual Cantonese and English quality.',
+      exp_hko_li3: 'Delivered a production-ready tool in a secure environment and received positive feedback for customized UI and UX.',
+      exp_library_title: 'HKUST Library',
+      exp_library_date: 'Sep 2024 - Dec 2024',
+      exp_library_sub: 'Developer, DS Colab Project | Hong Kong',
+      exp_library_li1: 'Engineered a bilingual topic modeling application using Streamlit and BERTopic for no-code semantic analysis in digital humanities research.',
+      exp_library_li2: 'Implemented custom Chinese text segmentation to resolve tokenization issues for non-English datasets.',
+      exp_library_li3: 'Developed interactive visualizations that made complex model outputs interpretable for researchers.',
+      experience_teaching: 'Teaching & Leadership',
+      exp_ta_title: 'Department of Computer Science and Engineering (CSE), HKUST',
+      exp_ta_date: 'Dec 2025 - Jan 2026',
+      exp_ta_sub: 'Teaching Assistant of COMP 1023: Introduction to Python Programming',
+      exp_ta_li1: 'Designed beginner-friendly assignments with interactive UIs and autograders.',
+      exp_ta_li2: 'Reviewed course materials and gave feedback.',
+      exp_urao_title: 'Undergraduate Recruitment and Admissions Office (URAO), HKUST',
+      exp_urao_date: '2023 - 2026',
+      exp_urao_sub: 'Deputy Head Student Ambassador',
+      exp_urao_li1: 'Led the Greater China recruitment team to conduct info sessions and interviews.',
+      exp_urao_li2: 'Managed official social media channels (WeChat, Rednote), directing content creation and engagement strategies.',
+      projects_title: 'Projects',
+      proj_robo_title: 'RoboAnalyzer: Automatic Emergent Stock Analysis System',
+      proj_robo_date: 'Jun 2025 - Present',
+      proj_robo_sub: 'Final Year Project, supervised by Prof. Yangqiu Song | HKUST',
+      proj_robo_li1: 'Architected an automated pipeline identifying emergent stocks integrating LLM agents for analysis.',
+      proj_robo_li2: 'Built a Streamlit dashboard for real-time engagement.',
+      proj_robo_li3: 'Developed a Backtrader engine to simulate momentum strategies.',
+      proj_vision_title: 'Advanced Fine-tuning & Semi-supervised Methods in Vision',
+      proj_vision_date: 'Apr 2025 - May 2025',
+      proj_vision_sub: 'Course Project: Deep Learning in Data Science, instructed by Prof. Josephine Sullivan | KTH',
+      proj_vision_li1: 'Conducted a comparative study of ResNet152 vs. ViT on the Oxford-IIIT Pet dataset using LoRA.',
+      proj_vision_li2: 'Implemented LoRA to reduce parameters by more than 99% and pseudo-labeling to boost accuracy from 50.7% to 74.9% in limited-label scenarios.',
+      proj_vision_li3: 'Awarded best report of the batch during the poster session for experimental depth.',
+      proj_atlas_title: 'Income vs. Expense Atlas',
+      proj_atlas_date: 'Jan 2025 - Mar 2025',
+      proj_atlas_sub: 'Course Project: Information Visualization, instructed by Prof. Tino Weinkauf | KTH',
+      proj_atlas_li1: 'Developed a responsive visualization tool mapping purchasing power across 680+ cities.',
+      proj_atlas_li2: 'Used dynamic choropleth maps and scatter plots to support city-level comparison.',
+      research_title: 'Research',
+      research_experience: 'Research Experience',
+      research_urop_title: 'Undergraduate Research Opportunities Program (UROP)',
+      research_urop_date: 'Jun 2024 - Apr 2025',
+      research_urop_sub: 'Speech-to-OverpassQL Model, supervised by Prof. Raymond Chi-Wing Wong | HKUST',
+      research_urop_li1: 'Conducted literature review on NLP and speech recognition.',
+      research_urop_li2: 'Investigated the feasibility of direct Speech-to-OverpassQL translation for OpenStreetMap queries.',
+      research_publications: 'Publications & Presentations',
+      publication_p1: 'Yip, S. L. and Wang, Y. (2025). <em>From Challenges to Solutions: Insights from Our Journey of Developing a Topic Modeling Tool for English and Chinese.</em> Presented at the Global Digital Humanities Symposium (GDHS), Michigan State University. <a href="https://doi.org/10.17613/sb0t9-qp319" target="_blank" rel="noreferrer">doi.org/10.17613/sb0t9-qp319</a>',
+      publication_p2: 'This presentation grew out of the <a href="#hkust-library-project" onclick="openExperienceProject(event, \'hkust-library-project\')">HKUST Library topic modeling project</a>.',
+      beyond_title: 'Beyond Work',
+      beyond_intro: 'A restrained space for references, places, images, and fragments that quietly shape attention, judgment, and perspective outside formal projects.',
+      beyond_music_label: 'Music',
+      beyond_music_title: 'Listening Notes',
+      beyond_music_body: 'Albums, composers, or songs that remain in rotation and return as a way of thinking through mood, pacing, and attention.',
+      beyond_places_label: 'Places',
+      beyond_places_title: 'Travel Memory',
+      beyond_places_body: 'Places remembered less as itineraries and more as textures: light, weather, architecture, or a passing conversation.',
+      beyond_visual_label: 'Visual Notes',
+      beyond_visual_title: 'Selected Images',
+      beyond_visual_body: 'A restrained selection of photographs or visual fragments kept for composition, atmosphere, and ways of noticing.',
+      beyond_fragments_label: 'Fragments',
+      beyond_fragments_title: 'Short Reflections',
+      beyond_fragments_body: 'Compact observations, passing ideas, or lines worth keeping without expanding them into full essays.',
+      beyond_observations_label: 'Observations',
+      beyond_observations_title: 'What Shapes Thinking',
+      beyond_observations_body: 'Books, encounters, habits, or recurring details that influence how questions are framed and pursued.',
+      theme_dark: 'Dark mode',
+      theme_light: 'Light mode',
+      theme_aria: 'Toggle color theme'
+    },
+    'zh-Hant': {
+      tab_education: '教育',
+      tab_experience: '經歷',
+      tab_projects: '項目',
+      tab_research: '科研',
+      tab_beyond: '工作之外',
+      sidebar_summary: '我關注如何構建值得信任、立足社會的人工智能系統：它們在技術上嚴謹、在使用上透明，並能回應長期公共利益。',
+      label_linkedin: '領英主頁',
+      label_cv: '個人履歷',
+      education_title: '教育',
+      edu_hkust_title: '香港科技大學',
+      edu_hkust_date: '2022 年 9 月 - 2026 年 6 月（預計）',
+      edu_hkust_sub: '工學學士（計算機科學），數學副修 | 香港',
+      edu_hkust_li1: 'CGA 4.064/4.3，145 人中排名第 3。',
+      edu_hkust_li2: 'GRE：Verbal 152、Quantitative 170、Analytical Writing 4.0。',
+      edu_hkust_li3: '以優異成績修讀的課程包括程式設計（Python、Java、C++）、演算法設計與分析、人工智慧、資料視覺化、作業系統、機率與統計、線性代數及經濟學。',
+      edu_hkust_li4: '榮譽與獎項包括：大學入學獎學金、馮紹強先生獎學金、利希慎基金交流獎學金、工學院院長嘉許名單。',
+      edu_kth_title: '瑞典皇家理工學院（KTH）',
+      edu_kth_date: '2025 年 1 月 - 2025 年 6 月',
+      edu_kth_sub: '交換生，電機工程與計算機科學學院（EECS） | 瑞典斯德哥爾摩',
+      edu_kth_li1: '於軟體工程、資訊視覺化、資料科學中的深度學習及最佳化等課程中表現優異。',
+      edu_kth_li2: '在技術交流之外，也進一步理解了瑞典的歷史、社會與文化。',
+      edu_usfq_title: '基多舊金山大學',
+      edu_usfq_date: '2025 年 10 月 - 2025 年 12 月',
+      edu_usfq_sub: '虛擬交換生 | 厄瓜多基多',
+      edu_usfq_li1: '透過靜物與風景練習，建立了基礎素描能力。',
+      experience_title: '經歷',
+      experience_industry: '產業與技術經驗',
+      exp_hko_title: '香港天文台（HKO）',
+      exp_hko_date: '2025 年 6 月 - 2025 年 8 月',
+      exp_hko_sub: '暑期實習，資訊科技管理組 | 香港',
+      exp_hko_li1: '主導一項為期 8 週的個人專案，部署蒸餾式大型語言模型以自動轉錄天氣電視節目內容，涵蓋從資料整理到 FastAPI 與 React 實作的完整流程。',
+      exp_hko_li2: '透過知識蒸餾與 4-bit 量化，將模型體積縮減超過 90%，同時維持粵語與英語雙語品質。',
+      exp_hko_li3: '在安全環境中交付可投入使用的工具，並因客製化 UI/UX 獲得正面回饋。',
+      exp_library_title: '香港科技大學圖書館',
+      exp_library_date: '2024 年 9 月 - 2024 年 12 月',
+      exp_library_sub: '開發者，DS Colab 專案 | 香港',
+      exp_library_li1: '使用 Streamlit 與 BERTopic 建構雙語主題模型應用，支援數位人文研究中的免程式語意分析。',
+      exp_library_li2: '實作客製化中文斷詞流程，解決非英文資料集的分詞問題。',
+      exp_library_li3: '開發互動式視覺化，協助研究者理解複雜的模型輸出。',
+      experience_teaching: '教學與領導',
+      exp_ta_title: '香港科技大學計算機科學及工程學系（CSE）',
+      exp_ta_date: '2025 年 12 月 - 2026 年 1 月',
+      exp_ta_sub: 'COMP 1023：Python 程式設計導論 助教',
+      exp_ta_li1: '設計具互動介面的初學者作業與自動評分系統。',
+      exp_ta_li2: '審閱課程教材並提供回饋。',
+      exp_urao_title: '香港科技大學本科生招募及入學處（URAO）',
+      exp_urao_date: '2023 年 - 2026 年',
+      exp_urao_sub: '副首席學生大使',
+      exp_urao_li1: '帶領大中華招募團隊舉辦資訊講座與面試。',
+      exp_urao_li2: '管理官方社群媒體（微信、小紅書），統籌內容製作與互動策略。',
+      projects_title: '項目',
+      proj_robo_title: 'RoboAnalyzer：自動新興股票分析系統',
+      proj_robo_date: '2025 年 6 月 - 至今',
+      proj_robo_sub: '畢業專題，指導教授：宋揚求 | 香港科技大學',
+      proj_robo_li1: '設計自動化流程，結合 LLM agents 進行新興股票識別與分析。',
+      proj_robo_li2: '建立 Streamlit 儀表板，支援即時互動與展示。',
+      proj_robo_li3: '開發 Backtrader 引擎以模擬動能策略。',
+      proj_vision_title: '視覺任務中的進階微調與半監督方法',
+      proj_vision_date: '2025 年 4 月 - 2025 年 5 月',
+      proj_vision_sub: '課程專案：資料科學中的深度學習，授課教師：Prof. Josephine Sullivan | KTH',
+      proj_vision_li1: '以 LoRA 比較 ResNet152 與 ViT 在 Oxford-IIIT Pet 資料集上的表現。',
+      proj_vision_li2: '透過 LoRA 將可訓練參數降低超過 99%，並以 pseudo-labeling 將少標註情境下的準確率由 50.7% 提升至 74.9%。',
+      proj_vision_li3: '因實驗深度獲選為該梯次海報展示中的最佳報告。',
+      proj_atlas_title: 'Income vs. Expense Atlas',
+      proj_atlas_date: '2025 年 1 月 - 2025 年 3 月',
+      proj_atlas_sub: '課程專案：資訊視覺化，授課教師：Prof. Tino Weinkauf | KTH',
+      proj_atlas_li1: '開發可回應式視覺化工具，呈現 680+ 城市的購買力差異。',
+      proj_atlas_li2: '使用動態分級設色地圖與散點圖支援城市層級比較。',
+      research_title: '研究',
+      research_experience: '研究經驗',
+      research_urop_title: '本科生研究計劃（UROP）',
+      research_urop_date: '2024 年 6 月 - 2025 年 4 月',
+      research_urop_sub: 'Speech-to-OverpassQL 模型，指導教授：黃志榮 | 香港科技大學',
+      research_urop_li1: '進行 NLP 與語音辨識相關文獻回顧。',
+      research_urop_li2: '探討將語音直接轉換為 OpenStreetMap 查詢語言 OverpassQL 的可行性。',
+      research_publications: '發表與演講',
+      publication_p1: 'Yip, S. L. 與 Wang, Y.（2025）。<em>From Challenges to Solutions: Insights from Our Journey of Developing a Topic Modeling Tool for English and Chinese.</em> 發表於密西根州立大學 Global Digital Humanities Symposium（GDHS）。<a href="https://doi.org/10.17613/sb0t9-qp319" target="_blank" rel="noreferrer">doi.org/10.17613/sb0t9-qp319</a>',
+      publication_p2: '此演講延伸自<a href="#hkust-library-project" onclick="openExperienceProject(event, \'hkust-library-project\')">香港科技大學圖書館主題模型專案</a>。',
+      beyond_title: '工作之外',
+      beyond_intro: '一個克制的小角落，用來放置那些安靜地塑造注意力、判斷與視角的參照、地方、圖像與片段。',
+      beyond_music_label: '音樂',
+      beyond_music_title: '聆聽筆記',
+      beyond_music_body: '那些會反覆回到生活中的專輯、作曲家或歌曲，幫助我思考情緒、節奏與注意力。',
+      beyond_places_label: '地方',
+      beyond_places_title: '旅行記憶',
+      beyond_places_body: '記住一個地方，不只是行程，而是光線、天氣、建築，或一次短暫交談留下的質感。',
+      beyond_visual_label: '視覺筆記',
+      beyond_visual_title: '選讀圖像',
+      beyond_visual_body: '一組節制的照片或視覺片段，用來保留構圖、氛圍與觀看方式。',
+      beyond_fragments_label: '片段',
+      beyond_fragments_title: '短篇反思',
+      beyond_fragments_body: '一些值得留下的觀察、念頭與句子，暫時不展開成長文。',
+      beyond_observations_label: '觀察',
+      beyond_observations_title: '塑造思考的事物',
+      beyond_observations_body: '書籍、相遇、習慣與反覆出現的小細節，如何影響我提出問題與追索問題的方式。',
+      theme_dark: '深色模式',
+      theme_light: '淺色模式',
+      theme_aria: '切換色彩主題'
+    }
+  };
 
   function getPreferredTheme() {
     const storedTheme = localStorage.getItem(themeStorageKey);
@@ -1079,10 +1345,57 @@
     return prefersDark.matches ? 'dark' : 'light';
   }
 
+  function getPreferredLanguage() {
+    const storedLanguage = localStorage.getItem(languageStorageKey);
+    if (storedLanguage && translations[storedLanguage]) {
+      return storedLanguage;
+    }
+    return 'en';
+  }
+
   function updateThemeToggle(theme) {
     const nextTheme = theme === 'dark' ? 'light' : 'dark';
     themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
-    themeToggleLabel.textContent = nextTheme === 'dark' ? 'Dark mode' : 'Light mode';
+    themeToggle.setAttribute('aria-label', translations[currentLanguage].theme_aria);
+    themeToggleLabel.textContent = nextTheme === 'dark'
+      ? translations[currentLanguage].theme_dark
+      : translations[currentLanguage].theme_light;
+  }
+
+  function applyLanguage(language, persist) {
+    const dictionary = translations[language];
+    if (!dictionary) {
+      return;
+    }
+
+    currentLanguage = language;
+    root.lang = language === 'zh-Hant' ? 'zh-Hant' : 'en';
+
+    document.querySelectorAll('[data-i18n]').forEach((element) => {
+      const key = element.dataset.i18n;
+      if (dictionary[key]) {
+        element.textContent = dictionary[key];
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-html]').forEach((element) => {
+      const key = element.dataset.i18nHtml;
+      if (dictionary[key]) {
+        element.innerHTML = dictionary[key];
+      }
+    });
+
+    languageButtons.forEach((button) => {
+      const isActive = button.dataset.lang === language;
+      button.classList.toggle('active', isActive);
+      button.setAttribute('aria-pressed', String(isActive));
+    });
+
+    updateThemeToggle(root.getAttribute('data-theme') || getPreferredTheme());
+
+    if (persist) {
+      localStorage.setItem(languageStorageKey, language);
+    }
   }
 
   function applyTheme(theme, persist) {
@@ -1120,7 +1433,14 @@
     });
   }
 
+  applyLanguage(getPreferredLanguage(), false);
   applyTheme(getPreferredTheme(), false);
+
+  languageButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      applyLanguage(button.dataset.lang, true);
+    });
+  });
 
   themeToggle.addEventListener('click', () => {
     const nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
