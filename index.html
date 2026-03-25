@@ -675,6 +675,88 @@
       gap: var(--space-4);
     }
 
+    .photo-gallery {
+      column-count: 3;
+      column-gap: var(--space-4);
+      text-align: center;
+    }
+
+    .photo-card {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      margin: 0 0 var(--space-4);
+      overflow: hidden;
+      break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius-md) + 2px);
+      background: color-mix(in srgb, var(--panel) 84%, transparent);
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .photo-card.is-portrait {
+      width: 86%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .photo-card:hover,
+    .photo-card:focus-within {
+      transform: translateY(-2px);
+      border-color: var(--line-strong);
+      box-shadow: var(--shadow-md);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform var(--transition-base), filter var(--transition-base);
+    }
+
+    .photo-card:hover img,
+    .photo-card:focus-within img {
+      transform: scale(1.03);
+      filter: brightness(0.74);
+    }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      align-content: end;
+      gap: var(--space-1);
+      padding: var(--space-4);
+      background: linear-gradient(180deg, rgba(10, 16, 22, 0.02), rgba(10, 16, 22, 0.74));
+      color: #f8fafc;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--transition-fast), transform var(--transition-fast);
+      pointer-events: none;
+    }
+
+    .photo-card:hover .photo-overlay,
+    .photo-card:focus-within .photo-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .photo-year {
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(248, 250, 252, 0.78);
+    }
+
+    .photo-location {
+      font-size: 0.98rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
     .curated-card {
       padding: var(--space-5);
     }
@@ -756,6 +838,10 @@
       .curated-grid {
         grid-template-columns: 1fr;
       }
+
+      .photo-gallery {
+        column-count: 2;
+      }
     }
 
     @media (max-width: 720px) {
@@ -801,6 +887,10 @@
 
       .stats-grid {
         grid-template-columns: 1fr;
+      }
+
+      .photo-gallery {
+        column-count: 1;
       }
 
       .entry-header {
@@ -1087,38 +1177,11 @@
           <h2 data-i18n="beyond_title">Beyond Work</h2>
           <p data-i18n="beyond_intro">A restrained space for references, places, images, and fragments that quietly shape attention, judgment, and perspective outside formal projects.</p>
         </div>
-
-        <div class="curated-grid">
-          <article class="curated-card">
-            <span class="curated-label" data-i18n="beyond_music_label">Music</span>
-            <h3><span data-i18n="beyond_music_title">Listening Notes</span> <span class="curated-arrow" aria-hidden="true">↗</span></h3>
-            <p data-i18n="beyond_music_body">Albums, composers, or songs that remain in rotation and return as a way of thinking through mood, pacing, and attention.</p>
-          </article>
-
-          <article class="curated-card">
-            <span class="curated-label" data-i18n="beyond_places_label">Places</span>
-            <h3><span data-i18n="beyond_places_title">Travel Memory</span> <span class="curated-arrow" aria-hidden="true">↗</span></h3>
-            <p data-i18n="beyond_places_body">Places remembered less as itineraries and more as textures: light, weather, architecture, or a passing conversation.</p>
-          </article>
-
-          <article class="curated-card">
-            <span class="curated-label" data-i18n="beyond_visual_label">Visual Notes</span>
-            <h3><span data-i18n="beyond_visual_title">Selected Images</span> <span class="curated-arrow" aria-hidden="true">↗</span></h3>
-            <p data-i18n="beyond_visual_body">A restrained selection of photographs or visual fragments kept for composition, atmosphere, and ways of noticing.</p>
-          </article>
-
-          <article class="curated-card">
-            <span class="curated-label" data-i18n="beyond_fragments_label">Fragments</span>
-            <h3><span data-i18n="beyond_fragments_title">Short Reflections</span> <span class="curated-arrow" aria-hidden="true">↗</span></h3>
-            <p data-i18n="beyond_fragments_body">Compact observations, passing ideas, or lines worth keeping without expanding them into full essays.</p>
-          </article>
-
-          <article class="curated-card">
-            <span class="curated-label" data-i18n="beyond_observations_label">Observations</span>
-            <h3><span data-i18n="beyond_observations_title">What Shapes Thinking</span> <span class="curated-arrow" aria-hidden="true">↗</span></h3>
-            <p data-i18n="beyond_observations_body">Books, encounters, habits, or recurring details that influence how questions are framed and pursued.</p>
-          </article>
+        <div class="subsection-divider">
+          <h3 data-i18n="beyond_gallery_title">Photography</h3>
         </div>
+
+        <div class="photo-gallery" id="photo-gallery" aria-label="Photography gallery"></div>
       </section>
     </main>
   </div>
@@ -1131,8 +1194,40 @@
   const themeToggle = document.getElementById('theme-toggle');
   const themeToggleLabel = document.getElementById('theme-toggle-label');
   const languageButtons = Array.from(document.querySelectorAll('.lang-btn'));
+  const photoGallery = document.getElementById('photo-gallery');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
   let currentLanguage = 'en';
+
+  const photographyItems = [
+    { src: 'images/photography/IMG_9856.jpeg', alt: 'Photography image IMG_9856', year: '2023', location: 'Tibet' },
+    { src: 'images/photography/IMG_9350.jpeg', alt: 'Photography image IMG_9350', year: '2024', location: 'Tokyo' },
+    { src: 'images/photography/IMG_0006.jpeg', alt: 'Photography image IMG_0006', year: '2025', location: 'Calp' },
+    { src: 'images/photography/IMG_0719.jpeg', alt: 'Photography image IMG_0719', year: '2025', location: 'Schwangau' },
+    { src: 'images/photography/IMG_1170.jpeg', alt: 'Photography image IMG_1170', year: '2025', location: 'Königssee' },
+    { src: 'images/photography/IMG_2291.jpeg', alt: 'Photography image IMG_2291', year: '2025', location: 'Tromsø' },
+    { src: 'images/photography/IMG_2335.jpeg', alt: 'Photography image IMG_2335', year: '2025', location: 'Tromsø' },
+    { src: 'images/photography/IMG_2360.jpeg', alt: 'Photography image IMG_2360', year: '2024', location: 'Suzhou' },
+    { src: 'images/photography/IMG_3120.jpeg', alt: 'Photography image IMG_3120', year: '2025', location: 'Stockholm' },
+    { src: 'images/photography/IMG_3308.jpeg', alt: 'Photography image IMG_3308', year: '2025', location: 'Stockholm' },
+    { src: 'images/photography/IMG_3586.jpeg', alt: 'Photography image IMG_3586', year: '2024', location: 'Taichung' },
+    { src: 'images/photography/IMG_3612.jpeg', alt: 'Photography image IMG_3612', year: '2024', location: 'Taichung' },
+    { src: 'images/photography/IMG_3869.jpeg', alt: 'Photography image IMG_3869', year: '2024', location: 'Alishan' },
+    { src: 'images/photography/IMG_4079.jpeg', alt: 'Photography image IMG_4079', year: '2024', location: 'Kaohsiung' },
+    { src: 'images/photography/IMG_4197.jpeg', alt: 'Photography image IMG_4197', year: '2025', location: 'Stockholm' },
+    { src: 'images/photography/IMG_4580.jpeg', alt: 'Photography image IMG_4580', year: '2023', location: 'Sydney' },
+    { src: 'images/photography/IMG_4874.jpeg', alt: 'Photography image IMG_4874', year: '2025', location: 'Taipei' },
+    { src: 'images/photography/IMG_4904.jpeg', alt: 'Photography image IMG_4904', year: '2025', location: 'Stockholm' },
+    { src: 'images/photography/IMG_5620.jpeg', alt: 'Photography image IMG_5620', year: '2023', location: 'Auckland' },
+    { src: 'images/photography/IMG_6626.jpeg', alt: 'Photography image IMG_6626', year: '2025', location: 'Reykjavík' },
+    { src: 'images/photography/IMG_7530.jpeg', alt: 'Photography image IMG_7530', year: '2025', location: 'Yilan' },
+    { src: 'images/photography/IMG_8101.jpeg', alt: 'Photography image IMG_8101', year: '2025', location: 'Yeliu' },
+    { src: 'images/photography/IMG_8248.jpeg', alt: 'Photography image IMG_8248', year: '2024', location: 'Nara' },
+    { src: 'images/photography/IMG_8438.jpeg', alt: 'Photography image IMG_8438', year: '2025', location: 'Helsinki' },
+    { src: 'images/photography/IMG_8792.jpeg', alt: 'Photography image IMG_8792', year: '2024', location: 'Kyoto' },
+    { src: 'images/photography/IMG_8880.jpeg', alt: 'Photography image IMG_8880', year: '2025', location: 'Copenhagen' },
+
+
+  ];
 
   const translations = {
     en: {
@@ -1216,21 +1311,7 @@
       publication_p2: 'This presentation grew out of the <a href="#hkust-library-project" onclick="openExperienceProject(event, \'hkust-library-project\')">HKUST Library topic modeling project</a>.',
       beyond_title: 'Beyond Work',
       beyond_intro: 'A restrained space for references, places, images, and fragments that quietly shape attention, judgment, and perspective outside formal projects.',
-      beyond_music_label: 'Music',
-      beyond_music_title: 'Listening Notes',
-      beyond_music_body: 'Albums, composers, or songs that remain in rotation and return as a way of thinking through mood, pacing, and attention.',
-      beyond_places_label: 'Places',
-      beyond_places_title: 'Travel Memory',
-      beyond_places_body: 'Places remembered less as itineraries and more as textures: light, weather, architecture, or a passing conversation.',
-      beyond_visual_label: 'Visual Notes',
-      beyond_visual_title: 'Selected Images',
-      beyond_visual_body: 'A restrained selection of photographs or visual fragments kept for composition, atmosphere, and ways of noticing.',
-      beyond_fragments_label: 'Fragments',
-      beyond_fragments_title: 'Short Reflections',
-      beyond_fragments_body: 'Compact observations, passing ideas, or lines worth keeping without expanding them into full essays.',
-      beyond_observations_label: 'Observations',
-      beyond_observations_title: 'What Shapes Thinking',
-      beyond_observations_body: 'Books, encounters, habits, or recurring details that influence how questions are framed and pursued.',
+      beyond_gallery_title: 'Photography',
       theme_dark: 'Dark mode',
       theme_light: 'Light mode',
       theme_aria: 'Toggle color theme'
@@ -1316,26 +1397,50 @@
       publication_p2: '此演講延伸自<a href="#hkust-library-project" onclick="openExperienceProject(event, \'hkust-library-project\')">香港科技大學圖書館主題模型專案</a>。',
       beyond_title: '工作之外',
       beyond_intro: '一個克制的小角落，用來放置那些安靜地塑造注意力、判斷與視角的參照、地方、圖像與片段。',
-      beyond_music_label: '音樂',
-      beyond_music_title: '聆聽筆記',
-      beyond_music_body: '那些會反覆回到生活中的專輯、作曲家或歌曲，幫助我思考情緒、節奏與注意力。',
-      beyond_places_label: '地方',
-      beyond_places_title: '旅行記憶',
-      beyond_places_body: '記住一個地方，不只是行程，而是光線、天氣、建築，或一次短暫交談留下的質感。',
-      beyond_visual_label: '視覺筆記',
-      beyond_visual_title: '選讀圖像',
-      beyond_visual_body: '一組節制的照片或視覺片段，用來保留構圖、氛圍與觀看方式。',
-      beyond_fragments_label: '片段',
-      beyond_fragments_title: '短篇反思',
-      beyond_fragments_body: '一些值得留下的觀察、念頭與句子，暫時不展開成長文。',
-      beyond_observations_label: '觀察',
-      beyond_observations_title: '塑造思考的事物',
-      beyond_observations_body: '書籍、相遇、習慣與反覆出現的小細節，如何影響我提出問題與追索問題的方式。',
+      beyond_gallery_title: '攝影',
       theme_dark: '深色模式',
       theme_light: '淺色模式',
       theme_aria: '切換色彩主題'
     }
   };
+
+  function renderPhotographyGallery() {
+    photoGallery.innerHTML = photographyItems.map((item) => `
+      <figure class="photo-card">
+        <img src="${item.src}" alt="${item.alt}" loading="lazy" decoding="async">
+        <figcaption class="photo-overlay">
+          <span class="photo-year">${item.year}</span>
+          <span class="photo-location">${item.location}</span>
+        </figcaption>
+      </figure>
+    `).join('');
+
+    photoGallery.querySelectorAll('.photo-card img').forEach((image) => {
+      const applyOrientationClass = () => {
+        const card = image.closest('.photo-card');
+        if (!card) {
+          return;
+        }
+
+        card.classList.remove('is-landscape', 'is-square', 'is-portrait');
+
+        const ratio = image.naturalWidth / image.naturalHeight;
+        if (ratio >= 1.2) {
+          card.classList.add('is-landscape');
+        } else if (ratio >= 0.9) {
+          card.classList.add('is-square');
+        } else {
+          card.classList.add('is-portrait');
+        }
+      };
+
+      if (image.complete) {
+        applyOrientationClass();
+      } else {
+        image.addEventListener('load', applyOrientationClass, { once: true });
+      }
+    });
+  }
 
   function getPreferredTheme() {
     const storedTheme = localStorage.getItem(themeStorageKey);
@@ -1435,6 +1540,7 @@
 
   applyLanguage(getPreferredLanguage(), false);
   applyTheme(getPreferredTheme(), false);
+  renderPhotographyGallery();
 
   languageButtons.forEach((button) => {
     button.addEventListener('click', () => {
